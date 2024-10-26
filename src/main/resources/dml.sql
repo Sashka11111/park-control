@@ -1,5 +1,5 @@
 -- Вставка даних у таблицю користувачів
-INSERT INTO Users (name, email, password, role)
+INSERT INTO Users (username, email, password, role)
 VALUES
     ('John Doe', 'john.doe@example.com', 'SecurePass123!', 'USER'),
     ('Jane Smith', 'jane.smith@example.com', 'AdminPass2024#', 'ADMIN'),
