@@ -1,11 +1,9 @@
 -- Вставка даних у таблицю користувачів
-INSERT INTO Users (username, email, password, role)
+INSERT INTO Users (username, password, role)
 VALUES
-    ('John Doe', 'john.doe@example.com', 'SecurePass123!', 'USER'),
-    ('Jane Smith', 'jane.smith@example.com', 'AdminPass2024#', 'ADMIN'),
-    ('Alice Johnson', 'alice.johnson@example.com', 'AliceSecure2023$', 'USER'),
-    ('Bob Brown', 'bob.brown@example.com', 'BobBrown2023@', 'USER');
-
+    ('Admin', '3b612c75a7b5048a435fb6ec81e52ff92d6d795a8b5a9c17070f6a63c97a53b2', 'ADMIN'),
+    ('User1', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'USER'),
+    ('User2', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'USER');
 -- Вставка даних у таблицю паркувальних місць
 INSERT INTO ParkingSpots (location, status)
 VALUES

@@ -8,21 +8,16 @@ import com.parkcontrol.persistence.entity.UserRole;
 import com.parkcontrol.persistence.repository.contract.UserRepository;
 import com.parkcontrol.persistence.repository.impl.UserRepositoryImpl;
 import com.parkcontrol.presentation.animation.Shake;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.stage.FileChooser;
 
 public class RegistrationController {
 
@@ -30,87 +25,35 @@ public class RegistrationController {
   private Button SignInButton;
 
   @FXML
-  private Button authSignInButton;
+  private Hyperlink SignUpHyperlink;
 
   @FXML
-  private TextField login_field;
-
-  @FXML
-  private PasswordField password_field;
-
-  @FXML
-  private Button btn_close;
+  private Button btnClose;
 
   @FXML
   private Label errorMessageLabel;
 
   @FXML
-  private ImageView profileImageView;
+  private TextField loginField;
 
-  private String selectedProfileImagePath;
+  @FXML
+  private PasswordField passwordField;
 
   private UserRepository userRepository;
-  private byte[] imageBytes;
+
 
   public RegistrationController() {
     this.userRepository = new UserRepositoryImpl(new DatabaseConnection().getDataSource());
-    // Завантажити зображення за замовчуванням
-    imageBytes = loadDefaultImageBytes();
-  }
 
-  private byte[] readImageToBytes(File file) {
-    try (FileInputStream fis = new FileInputStream(file)) {
-      byte[] data = new byte[(int) file.length()];
-      fis.read(data);
-      return data;
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  private byte[] loadDefaultImageBytes() {
-    try (InputStream is = getClass().getResourceAsStream("/data/profile.png")) {
-      if (is == null) {
-        throw new IOException("Default profile image not found");
-      }
-      return is.readAllBytes();
-    } catch (IOException e) {
-      e.printStackTrace();
-      return null;
-    }
-  }
-
-  @FXML
-  void chooseImageButtonClicked() {
-    chooseImage();
-  }
-
-  public void chooseImage() {
-    FileChooser fileChooser = new FileChooser();
-    fileChooser.setTitle("Choose Profile Image");
-    fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.gif")
-    );
-    File selectedFile = fileChooser.showOpenDialog(profileImageView.getScene().getWindow());
-    if (selectedFile != null) {
-      selectedProfileImagePath = selectedFile.getPath();
-      Image image = new Image(selectedFile.toURI().toString());
-      profileImageView.setImage(image);
-      imageBytes = readImageToBytes(selectedFile); // Зчитати зображення в масив байтів
-    } else {
-      profileImageView.setImage(new Image(getClass().getResourceAsStream("/data/profile.png")));
-      imageBytes = null; // Зображення не вибрано
-    }
   }
 
   @FXML
   void initialize() {
-    btn_close.setOnAction(event -> {
+    btnClose.setOnAction(event -> {
       System.exit(0);
     });
-    authSignInButton.setOnAction(event -> {
-      Scene currentScene = authSignInButton.getScene();
+    SignUpHyperlink.setOnAction(event -> {
+      Scene currentScene = SignUpHyperlink.getScene();
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/authorization.fxml"));
       try {
         Parent root = loader.load();
@@ -121,12 +64,12 @@ public class RegistrationController {
     });
 
     SignInButton.setOnAction(event -> {
-      String username = login_field.getText();
-      String password = password_field.getText();
+      String username = loginField.getText();
+      String password = passwordField.getText();
       if (username.isEmpty() || password.isEmpty()) {
         errorMessageLabel.setText("Логін та пароль не повинен бути пустим");
-        Shake userLoginAnim = new Shake(login_field);
-        Shake userPassAnim = new Shake(password_field);
+        Shake userLoginAnim = new Shake(loginField);
+        Shake userPassAnim = new Shake(passwordField);
         userLoginAnim.playAnim();
         userPassAnim.playAnim();
         return;
@@ -142,7 +85,7 @@ public class RegistrationController {
           // Додавання користувача до бази даних через UserRepository
           userRepository.addUser(user);
 
-          Scene currentScene = authSignInButton.getScene();
+          Scene currentScene = SignUpHyperlink.getScene();
           FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/authorization.fxml"));
           try {
             Parent root = loader.load();
@@ -152,13 +95,13 @@ public class RegistrationController {
           }
         } else {
           errorMessageLabel.setText("Логін з ім'ям " + username + " уже існує");
-          Shake userLoginAnim = new Shake(login_field);
+          Shake userLoginAnim = new Shake(loginField);
           userLoginAnim.playAnim();
         }
       } else {
         errorMessageLabel.setText("Пароль має мати велику, маленьку букву та цифру.\n" + "Мінімальна довжина паролю: 6 символів");
-        Shake userLoginAnim = new Shake(login_field);
-        Shake userPassAnim = new Shake(password_field);
+        Shake userLoginAnim = new Shake(loginField);
+        Shake userPassAnim = new Shake(passwordField);
         userLoginAnim.playAnim();
         userPassAnim.playAnim();
       }

@@ -1,0 +1,127 @@
+.textfield{
+  -fx-background-color: transparent;
+  -fx-border-color:  #0dacba;
+  -fx-border-width: 0px 0px .4px 0px;
+}
+
+.textfield:focused{
+  -fx-border-color:#000000;
+  -fx-border-width: 0px 0px 1px 0px;
+}
+
+.combo-box{
+  -fx-background-color: transparent;
+  -fx-border-color:  #004C4C;
+  -fx-border-width: 0px 0px .4px 0px;
+}
+
+.side-btn {
+  -fx-background-color: transparent;
+  -fx-border-radius: 3px; /* Округлені кути */
+  -fx-alignment: CENTER_LEFT; /* Вирівнювання тексту зліва */
+  -fx-padding: 0 10px 0 10px; /* Відступи для розміщення тексту зліва */
+}
+
+.side-btn:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Прозорий колір фону при наведенні */
+  -fx-cursor: hand;
+}
+
+
+.close-button {
+  -fx-background-color: transparent; /* Колір фону кнопки */
+  -fx-cursor: hand;
+}
+
+.close-button:hover {
+  -fx-background-color: #ff0000; /* Колір фону кнопки при наведенні */
+}
+
+/* Стиль кнопки для згортання */
+.minimize-button {
+  -fx-background-color: transparent;
+  -fx-cursor: hand;
+}
+
+.minimize-button:hover {
+  -fx-background-color: rgba(255, 255, 255, 0.2); /* Прозорий колір фону при наведенні */
+}
+
+.card {
+  -fx-background-color: white;
+  -fx-border-color: white;
+  -fx-background-radius: 16px;
+  -fx-border-radius: 16px;
+  -fx-padding: 10px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
+  -fx-wrap-text: true; /* Автоматичне перенесення тексту */
+  -fx-cursor: hand;
+}
+
+.table-view {
+  -fx-background-color: transparent;
+  -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
+  -fx-border-width: 2px;
+  -fx-border-radius: 8px;
+  -fx-padding: 0;
+  -fx-text-fill: #ffffff;
+}
+
+.table-view .column-header-background {
+  -fx-background-color: rgba(255, 255, 255, 0.2);
+  -fx-background-radius: 8px 8px 0 0;
+  -fx-background-insets: 0 0 0 0;
+}
+
+.table-view .column-header, .filter {
+  -fx-background-color: linear-gradient(to bottom, #004C4C, #006666);
+  -fx-size: 50px;
+}
+
+.label-title {
+  -fx-font-size: 16px;
+  -fx-font-weight: bold;
+  -fx-padding: 10px 0; /* Додає відстань між заголовком і текстом */
+}
+
+.info-pane {
+  -fx-background-color: #E0E0E0;
+  -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
+  -fx-background-radius: 16;
+  -fx-border-radius: 16;
+}
+
+.toggle-switch {
+  -fx-background-color: transparent;
+  -fx-text-fill: white;
+  -fx-font-size: 14px;
+  -fx-border-radius: 15px;
+}
+
+.toggle-switch:selected {
+  -fx-background-color: #006666; /* matches the sidebar color */
+  -fx-text-fill: white;
+}
+
+.toggle-switch .thumb {
+  -fx-background-color: #00cc99; /* light green to match design */
+  -fx-background-insets: 1;
+  -fx-background-radius: 15px;
+  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 1);
+}
+
+.toggle-switch:selected .thumb {
+  -fx-background-color: #004d4d; /* darker green to match design */
+}
+
+/* Style for the ToggleSwitch track */
+.toggle-switch .track {
+  -fx-background-color: #005050; /* matches the sidebar color */
+  -fx-background-radius: 15px;
+}
+
+/* Style for the ToggleSwitch thumb */
+.toggle-switch .thumb {
+  -fx-background-color: #00cc99; /* light green */
+  -fx-background-radius: 15px;
+}

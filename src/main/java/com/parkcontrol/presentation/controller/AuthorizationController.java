@@ -38,16 +38,10 @@ public class AuthorizationController {
   private PasswordField passwordField;
 
   @FXML
-  private Button btn_close;
+  private Button btnClose;
   @FXML
   private Label errorMessageLabel;
-  @FXML
-  private Label medGuide;
-  @FXML
-  private Label authLabel;
 
-  @FXML
-  private Label authQuestion;
   private UserRepository userRepository; // Змінна для зберігання UserRepository
 
   // Параметризований конструктор, який приймає userRepository
@@ -57,7 +51,7 @@ public class AuthorizationController {
 
   @FXML
   void initialize() {
-    btn_close.setOnAction(event -> {
+    btnClose.setOnAction(event -> {
       System.exit(0);
     });
     authSignInHyperlink.setOnAction(event -> {
@@ -99,13 +93,15 @@ public class AuthorizationController {
               stage.setScene(new Scene(root));
               stage.initStyle(StageStyle.UNDECORATED);
               stage.showAndWait();
+            } else {
+              showError("Неправильний логін або пароль");
             }
           }
-        } catch (EntityNotFoundException e) {
-          throw new RuntimeException(e);
-        } catch (IOException e) {
-          throw new RuntimeException(e);
+        } catch (EntityNotFoundException | IOException e) {
+          showError("Неправильний логін або пароль");
         }
+      } else {
+        showError("Будь ласка, введіть логін та пароль");
       }
     });
   }
