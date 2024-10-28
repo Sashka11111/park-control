@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
@@ -53,40 +52,40 @@ public class MainMenuController {
   private Stage stage;
   private double xOffset = 0;
   private double yOffset = 0;
-//  @FXML
-//  void initialize() {
-//    closeButton.setOnAction(event -> System.exit(0));
-//    minimazeButton.setOnAction(event -> minimizeWindow());
-////    Medicines();
-////    medicinesButton.setOnAction(event -> showMedicinesPage());
-////    categoryButton.setOnAction(event -> showCategoryPage());
-////    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
-////    manageMedicinesButton.setOnAction(event -> showManageMedicinesPage());
-////    usersManagementButton.setOnAction(event -> showUsersPage());
-//
+  @FXML
+  void initialize() {
+    closeButton.setOnAction(event -> System.exit(0));
+    minimazeButton.setOnAction(event -> minimizeWindow());
+//    Medicines();
+//    medicinesButton.setOnAction(event -> showMedicinesPage());
+//    categoryButton.setOnAction(event -> showCategoryPage());
+//    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
+//    manageMedicinesButton.setOnAction(event -> showManageMedicinesPage());
+    usersManagementButton.setOnAction(event -> showUsersPage());
+
 //    User currentUser = AuthenticatedUser.getInstance().getCurrentUser();
 //    userName.setText(currentUser.username());
-//
+
 //    if (currentUser.role() != UserRole.ADMIN) {
 //      categoryButton.setVisible(false);
 //      manageMedicinesButton.setVisible(false);
 //      usersManagementButton.setVisible(false);
 //    }
+
+    Platform.runLater(() -> {
+      Stage primaryStage = (Stage) contentArea.getScene().getWindow();
+      addDragListeners(primaryStage.getScene().getRoot());
+    });
+  }
 //
-//    Platform.runLater(() -> {
-//      Stage primaryStage = (Stage) contentArea.getScene().getWindow();
-//      addDragListeners(primaryStage.getScene().getRoot());
-//    });
-//  }
-////
-//  private void moveStackPane(Button button) {
-//    double buttonX = button.localToParent(button.getBoundsInLocal()).getMinX();
-//    double buttonY = button.localToParent(button.getBoundsInLocal()).getMinY();
-//    TranslateTransition transition = new TranslateTransition(Duration.seconds(0.3), stackPane);
-//    transition.setToX(buttonX);
-//    stackPane.setLayoutY(buttonY);
-//  }
-//
+  private void moveStackPane(Button button) {
+    double buttonX = button.localToParent(button.getBoundsInLocal()).getMinX();
+    double buttonY = button.localToParent(button.getBoundsInLocal()).getMinY();
+    TranslateTransition transition = new TranslateTransition(Duration.seconds(0.3), stackPane);
+    transition.setToX(buttonX);
+    stackPane.setLayoutY(buttonY);
+  }
+
 //  private void showMedicinesPage() {
 //    moveStackPane(medicinesButton);
 //    loadFXML("/view/medicines.fxml");
@@ -106,21 +105,21 @@ public class MainMenuController {
 //    moveStackPane(categoryButton);
 //    loadFXML("/view/category.fxml");
 //  }
-//  private void showUsersPage() {
-//    moveStackPane(usersManagementButton);
-//    loadFXML("/view/usersManagement.fxml");
-//  }
-//
-//  private void loadFXML(String fxmlFileName) {
-//    try {
-//      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
-//      Parent fxml = loader.load();
-//      contentArea.getChildren().clear();
-//      contentArea.getChildren().add(fxml);
-//    } catch (IOException ex) {
-//      Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
-//    }
-//  }
+  private void showUsersPage() {
+    moveStackPane(usersManagementButton);
+    loadFXML("/view/usersManagement.fxml");
+  }
+
+  private void loadFXML(String fxmlFileName) {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlFileName));
+      Parent fxml = loader.load();
+      contentArea.getChildren().clear();
+      contentArea.getChildren().add(fxml);
+    } catch (IOException ex) {
+      Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
 
 //  private void Medicines() {
 //    try {

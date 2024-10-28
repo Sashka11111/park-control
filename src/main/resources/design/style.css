@@ -18,7 +18,7 @@
 .side-btn {
   -fx-background-color: transparent;
   -fx-border-radius: 3px; /* Округлені кути */
-  -fx-alignment: CENTER_LEFT; /* Вирівнювання тексту зліва */
+  -fx-alignment: CENTER; /* Вирівнювання тексту */
   -fx-padding: 0 10px 0 10px; /* Відступи для розміщення тексту зліва */
 }
 
@@ -47,24 +47,13 @@
   -fx-background-color: rgba(255, 255, 255, 0.2); /* Прозорий колір фону при наведенні */
 }
 
-.card {
-  -fx-background-color: white;
-  -fx-border-color: white;
-  -fx-background-radius: 16px;
-  -fx-border-radius: 16px;
-  -fx-padding: 10px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
-  -fx-wrap-text: true; /* Автоматичне перенесення тексту */
-  -fx-cursor: hand;
-}
-
 .table-view {
   -fx-background-color: transparent;
-  -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
+  -fx-border-color: linear-gradient(to bottom, #363a42, #424b4b);
   -fx-border-width: 2px;
   -fx-border-radius: 8px;
   -fx-padding: 0;
-  -fx-text-fill: #ffffff;
+  -fx-text-fill:  #0dacba;
 }
 
 .table-view .column-header-background {
@@ -74,7 +63,7 @@
 }
 
 .table-view .column-header, .filter {
-  -fx-background-color: linear-gradient(to bottom, #004C4C, #006666);
+  -fx-background-color: #363a42;
   -fx-size: 50px;
 }
 
@@ -89,39 +78,4 @@
   -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
   -fx-background-radius: 16;
   -fx-border-radius: 16;
-}
-
-.toggle-switch {
-  -fx-background-color: transparent;
-  -fx-text-fill: white;
-  -fx-font-size: 14px;
-  -fx-border-radius: 15px;
-}
-
-.toggle-switch:selected {
-  -fx-background-color: #006666; /* matches the sidebar color */
-  -fx-text-fill: white;
-}
-
-.toggle-switch .thumb {
-  -fx-background-color: #00cc99; /* light green to match design */
-  -fx-background-insets: 1;
-  -fx-background-radius: 15px;
-  -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.75), 4, 0, 0, 1);
-}
-
-.toggle-switch:selected .thumb {
-  -fx-background-color: #004d4d; /* darker green to match design */
-}
-
-/* Style for the ToggleSwitch track */
-.toggle-switch .track {
-  -fx-background-color: #005050; /* matches the sidebar color */
-  -fx-background-radius: 15px;
-}
-
-/* Style for the ToggleSwitch thumb */
-.toggle-switch .thumb {
-  -fx-background-color: #00cc99; /* light green */
-  -fx-background-radius: 15px;
 }

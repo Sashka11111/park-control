@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<?import java.lang.String?>
+<AnchorPane  prefHeight="670.0" prefWidth="918.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.parkcontrol.presentation.controller.ParkingSpotController">
+  <children>
+    <TableView fx:id="parkingSpotTable" layoutX="20" layoutY="60" prefWidth="600" prefHeight="300">
+      <columns>
+        <TableColumn text="ID" prefWidth="100" fx:id="spotIdColumn"/>
+        <TableColumn text="Локація" prefWidth="300" fx:id="locationColumn"/>
+        <TableColumn text="Статус" prefWidth="200" fx:id="statusColumn"/>
+      </columns>
+      <columnResizePolicy>
+        <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+      </columnResizePolicy>
+    </TableView>
+
+<!--    <TextField fx:id="locationTextField" layoutX="20" layoutY="380" prefWidth="400" promptText="Введіть локацію"/>-->
+    <ComboBox fx:id="statusComboBox" layoutX="450" layoutY="380" prefWidth="170">
+      <items>
+        <String fx:value="FREE"/>
+        <String fx:value="OCCUPIED"/>
+      </items>
+    </ComboBox>
+
+<!--    <Button text="Додати" layoutX="20" layoutY="420" onAction="#handleAddParkingSpot"/>-->
+<!--    <Button text="Оновити" layoutX="100" layoutY="420" onAction="#handleUpdateParkingSpot"/>-->
+<!--    <Button text="Видалити" layoutX="180" layoutY="420" onAction="#handleDeleteParkingSpot"/>-->
+
+<!--    <TextArea fx:id="messageArea" layoutX="20" layoutY="460" prefWidth="600" prefHeight="100" editable="false"/>-->
+
+    </children>
+</AnchorPane>

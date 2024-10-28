@@ -37,7 +37,7 @@
           </font></Label>
         <Label alignment="CENTER_RIGHT" layoutX="5.0" layoutY="325.0" prefHeight="27.0" prefWidth="161.0" text="Ще не зареєстровані?">
           <font>
-            <Font size="14.0" />
+            <Font name="Georgia" size="14.0" />
           </font>
         </Label>
         <Hyperlink fx:id="authSignInHyperlink" layoutX="173.0" layoutY="324.0" prefHeight="27.0" prefWidth="118.0" text="Зареєструватися" textFill="RED">
