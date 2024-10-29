@@ -38,11 +38,12 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
 
   @Override
   public void addParkingSpot(ParkingSpot parkingSpot) {
-    String query = "INSERT INTO ParkingSpots (location, status) VALUES (?, ?)";
+    String query = "INSERT INTO ParkingSpots (location, status, size) VALUES (?, ?, ?)";
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, parkingSpot.location());
       preparedStatement.setString(2, parkingSpot.status());
+      preparedStatement.setString(3, parkingSpot.size()); // Додаємо поле size
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -71,12 +72,13 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
 
   @Override
   public void updateParkingSpot(ParkingSpot parkingSpot) throws EntityNotFoundException {
-    String query = "UPDATE ParkingSpots SET location = ?, status = ? WHERE spot_id = ?";
+    String query = "UPDATE ParkingSpots SET location = ?, status = ?, size = ? WHERE spot_id = ?"; // Додаємо size
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setString(1, parkingSpot.location());
       preparedStatement.setString(2, parkingSpot.status());
-      preparedStatement.setInt(3, parkingSpot.spotId());
+      preparedStatement.setString(3, parkingSpot.size()); // Додаємо поле size
+      preparedStatement.setInt(4, parkingSpot.spotId());
       int affectedRows = preparedStatement.executeUpdate();
       if (affectedRows == 0) {
         throw new EntityNotFoundException("Паркувальне місце з ID " + parkingSpot.spotId() + " не знайдено");
@@ -124,6 +126,7 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
     int spotId = resultSet.getInt("spot_id");
     String location = resultSet.getString("location");
     String status = resultSet.getString("status");
-    return new ParkingSpot(spotId, location, status); // Припускаючи, що є відповідний конструктор в ParkingSpot
+    String size = resultSet.getString("size"); // Додаємо поле size
+    return new ParkingSpot(spotId, location, status, size); // Включаємо size в конструктор
   }
 }

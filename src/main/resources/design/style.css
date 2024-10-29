@@ -50,10 +50,10 @@
 .table-view {
   -fx-background-color: transparent;
   -fx-border-color: linear-gradient(to bottom, #363a42, #424b4b);
+  -fx-text-fill:  #0dacba;
   -fx-border-width: 2px;
   -fx-border-radius: 8px;
   -fx-padding: 0;
-  -fx-text-fill:  #0dacba;
 }
 
 .table-view .column-header-background {
@@ -66,7 +66,10 @@
   -fx-background-color: #363a42;
   -fx-size: 50px;
 }
-
+.table-view .column-header .label{
+  -fx-text-fill:#fff;
+  -fx-font-family:"Arial";
+}
 .label-title {
   -fx-font-size: 16px;
   -fx-font-weight: bold;

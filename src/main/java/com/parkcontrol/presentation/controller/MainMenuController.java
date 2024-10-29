@@ -3,14 +3,18 @@ package com.parkcontrol.presentation.controller;
 import com.parkcontrol.domain.security.AuthenticatedUser;
 import com.parkcontrol.persistence.entity.User;
 import com.parkcontrol.persistence.entity.UserRole;
+import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.util.Duration;
 
 import java.io.IOException;
@@ -41,6 +45,10 @@ public class MainMenuController {
   private Button usersManagementButton;
 
   @FXML
+  private Button changeAccountButton;
+
+
+  @FXML
   private StackPane stackPane;
 
   @FXML
@@ -62,10 +70,11 @@ public class MainMenuController {
 //    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
 //    manageMedicinesButton.setOnAction(event -> showManageMedicinesPage());
     usersManagementButton.setOnAction(event -> showUsersPage());
+    changeAccountButton.setOnAction(event -> handleChangeAccountAction());
 
-//    User currentUser = AuthenticatedUser.getInstance().getCurrentUser();
+    User currentUser = AuthenticatedUser.getInstance().getCurrentUser();
 //    userName.setText(currentUser.username());
-
+//
 //    if (currentUser.role() != UserRole.ADMIN) {
 //      categoryButton.setVisible(false);
 //      manageMedicinesButton.setVisible(false);
@@ -151,5 +160,41 @@ public class MainMenuController {
       stage.setY(event.getScreenY() - yOffset);
     });
   }
+  private void handleChangeAccountAction() {
+    try {
+      // Анімація для поточного вікна
+      Stage currentStage = (Stage) changeAccountButton.getScene().getWindow();
+      FadeTransition fadeOut = new FadeTransition(Duration.millis(500), currentStage.getScene().getRoot());
+      fadeOut.setFromValue(1.0);
+      fadeOut.setToValue(0.0);
+      fadeOut.setOnFinished(event -> {
+        try {
+          FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/authorization.fxml"));
+          Parent root = loader.load();
 
+          // Анімація для нового вікна
+          Stage loginStage = new Stage();
+          loginStage.getIcons().add(new Image(getClass().getResourceAsStream("/data/icon.png")));
+          loginStage.initStyle(StageStyle.UNDECORATED);
+          Scene scene = new Scene(root);
+          scene.getRoot().setOpacity(0.0);
+          loginStage.setScene(scene);
+          loginStage.show();
+
+          FadeTransition fadeIn = new FadeTransition(Duration.millis(500), scene.getRoot());
+          fadeIn.setFromValue(0.0);
+          fadeIn.setToValue(1.0);
+          fadeIn.play();
+
+          // Закриття поточного вікна
+          currentStage.close();
+        } catch (IOException ex) {
+          Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+      });
+      fadeOut.play();
+    } catch (Exception ex) {
+      Logger.getLogger(MainMenuController.class.getName()).log(Level.SEVERE, null, ex);
+    }
+  }
 }

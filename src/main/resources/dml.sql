@@ -5,11 +5,14 @@ VALUES
     ('User1', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'USER'),
     ('User2', 'a61a8adf60038792a2cb88e670b20540a9d6c2ca204ab754fc768950e79e7d36', 'USER');
 -- Вставка даних у таблицю паркувальних місць
-INSERT INTO ParkingSpots (location, status)
+INSERT INTO ParkingSpots (location, status, size)
 VALUES
-    ('Zone A - Spot 1', 'FREE'),
-    ('Zone A - Spot 2', 'OCCUPIED'),
-    ('Zone B - Spot 1', 'FREE');
+    ('Паркінг біля ТЦ', 'Вільне', 'Стандартне'),
+    ('Вулиця Лесі Українки', 'Зайняте', 'Велике'),
+    ('Паркінг біля стадіону', 'Вільне', 'Для інвалідів'),
+    ('Площа Свободи', 'Зайняте', 'Стандартне'),
+    ('Кафе на Хрещатику', 'Вільне', 'Велике');
+
 
 -- Вставка даних у таблицю бронювань
 INSERT INTO Reservations (user_id, spot_id, start_time, end_time)
