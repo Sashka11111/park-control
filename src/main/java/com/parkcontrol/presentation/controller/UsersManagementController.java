@@ -80,13 +80,13 @@ public class UsersManagementController {
     if (username != null && !username.isEmpty() && newRole != null) {
       try {
         userRepository.updateUserRole(username, newRole);
-        AlertController.showAlert("Повідомлення", "Успішно змінено роль");
+        AlertController.showAlert( "Успішно змінено роль");
         loadUsers();
       } catch (EntityNotFoundException e) {
-        AlertController.showAlert("Помилка", "Користувача не знайдено");
+        AlertController.showAlert( "Користувача не знайдено");
       }
     } else {
-      AlertController.showAlert("Увага", "Будь ласка, заповніть усі поля");
+      AlertController.showAlert( "Будь ласка, заповніть усі поля");
     }
     clearFields();
   }
@@ -97,13 +97,13 @@ public class UsersManagementController {
     if (username != null && !username.isEmpty()) {
       try {
         userRepository.deleteUser(username);
-        AlertController.showAlert("Повідомлення", "Користувача успішно видалено");
+        AlertController.showAlert("Користувача успішно видалено");
         loadUsers();
       } catch (EntityNotFoundException e) {
-        AlertController.showAlert("Помилка", "Користувача не знайдено");
+        AlertController.showAlert("Користувача не знайдено");
       }
     } else {
-      AlertController.showAlert("Увага", "Будь ласка, введіть ім'я користувача");
+      AlertController.showAlert("Будь ласка, введіть ім'я користувача");
     }
     clearFields();
   }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -19,11 +20,12 @@ public class AlertController {
   @FXML
   private Label messageLabel;
   @FXML
-  private Label message;
+  private Button closeButton;
 
   private Stage stage;
   @FXML
   void initialize() {
+    closeButton.setOnAction(event -> stage.close());
   }
   @FXML
   private void handleOkAction() {
@@ -38,11 +40,8 @@ public class AlertController {
     messageLabel.setText(message);
   }
 
-  public void setIcon(String iconPath) {
-    icon.setImage(new Image(iconPath));
-  }
 
-  public static void showAlert(String title, String message) {
+  public static void showAlert( String message) {
     try {
       FXMLLoader loader = new FXMLLoader(AlertController.class.getResource("/view/alert.fxml"));
       AnchorPane root = loader.load();
@@ -50,7 +49,6 @@ public class AlertController {
       Stage stage = new Stage();
       stage.initModality(Modality.APPLICATION_MODAL);
       stage.initStyle(StageStyle.UNDECORATED);
-      stage.setTitle(title);
       Scene scene = new Scene(root);
       stage.setScene(scene);
       controller.setStage(stage);

@@ -2,12 +2,11 @@ package com.parkcontrol.presentation.controller;
 
 import com.parkcontrol.domain.exception.EntityNotFoundException;
 import com.parkcontrol.domain.security.PasswordHashing;
-import com.parkcontrol.domain.validation.AuthenticatedUser;
+import com.parkcontrol.domain.security.AuthenticatedUser;
 import com.parkcontrol.persistence.connection.DatabaseConnection;
 import com.parkcontrol.persistence.entity.User;
 import com.parkcontrol.persistence.repository.contract.UserRepository;
 import com.parkcontrol.persistence.repository.impl.UserRepositoryImpl;
-import com.parkcontrol.presentation.animation.Shake;
 import java.io.IOException;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +38,6 @@ public class AuthorizationController {
 
   @FXML
   private Button btnClose;
-  @FXML
-  private Label errorMessageLabel;
 
   private UserRepository userRepository; // Змінна для зберігання UserRepository
 
@@ -94,24 +91,15 @@ public class AuthorizationController {
               stage.initStyle(StageStyle.UNDECORATED);
               stage.showAndWait();
             } else {
-              showError("Неправильний логін або пароль");
+              AlertController.showAlert("Неправильний логін або пароль");
             }
           }
         } catch (EntityNotFoundException | IOException e) {
-          showError("Неправильний логін або пароль");
+          AlertController.showAlert("Неправильний логін або пароль");
         }
       } else {
-        showError("Будь ласка, введіть логін та пароль");
+        AlertController.showAlert("Будь ласка, введіть логін та пароль");
       }
     });
   }
-
-  private void showError(String message) {
-    errorMessageLabel.setText(message);
-    Shake userLoginAnim = new Shake(loginField);
-    Shake userPassAnim = new Shake(passwordField);
-    userLoginAnim.playAnim();
-    userPassAnim.playAnim();
-  }
-
 }

@@ -5,25 +5,32 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="221.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.AlertController">
+<AnchorPane prefHeight="220.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.AlertController">
   <children>
     <ImageView fx:id="icon" fitHeight="40.0" fitWidth="40.0">
       <image>
         <Image url="@../data/icon.png" />
       </image></ImageView>
-    <Line endX="283.0" endY="-7.62939453125E-6" layoutX="101.0" layoutY="41.0" startX="-100.0" />
-    <Label fx:id="message" layoutX="132.0" layoutY="6.0" text="Повідомлення">
+    <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="6.0" prefHeight="27.0" prefWidth="216.0" text="Повідомлення" textAlignment="CENTER">
       <font>
-        <Font size="18.0" />
+        <Font name="Georgia" size="18.0" />
       </font>
     </Label>
-    <AnchorPane layoutY="42.0" prefHeight="178.0" prefWidth="384.0" style="-fx-background-color: #dff0d8;">
+    <Button fx:id="closeButton" layoutX="1057.0" layoutY="2.0" mnemonicParsing="false" prefHeight="18.0" prefWidth="21.0" styleClass="close-button" stylesheets="@../design/style.css" AnchorPane.rightAnchor="1.185789442062287" AnchorPane.topAnchor="2.0">
+      <graphic>
+        <ImageView fitHeight="27.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
+          <image>
+            <Image url="@../data/close.png" />
+          </image>
+        </ImageView>
+      </graphic>
+    </Button>
+    <AnchorPane layoutY="42.0" prefHeight="178.0" prefWidth="386.0" style="-fx-background-color: #424b4b;">
       <children>
-        <Label fx:id="messageLabel" alignment="CENTER" layoutX="5.0" layoutY="14.0" prefHeight="77.0" prefWidth="374.0" style="-fx-text-fill: #3c763d; -fx-font-size: 16px;" textAlignment="CENTER" wrapText="true" />
-        <Button layoutX="132.0" layoutY="117.0" onAction="#handleOkAction" prefHeight="40.0" prefWidth="106.0" style="-fx-background-color: #004C4C; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="OK">
+        <Label fx:id="messageLabel" alignment="CENTER" layoutX="5.0" layoutY="14.0" prefHeight="77.0" prefWidth="374.0" style="-fx-font-size: 16px;" textAlignment="CENTER" textFill="WHITE" wrapText="true" />
+        <Button layoutX="132.0" layoutY="117.0" onAction="#handleOkAction" prefHeight="40.0" prefWidth="106.0" style="-fx-background-color: #0dacba; -fx-text-fill: white; -fx-font-weight: bold; -fx-cursor: hand;" text="OK">
           <font>
             <Font size="18.0" />
           </font>

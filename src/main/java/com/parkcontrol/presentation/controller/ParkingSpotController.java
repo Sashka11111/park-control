@@ -1,131 +1,145 @@
-//package com.parkcontrol.presentation.controller;
-//
-//import com.parkcontrol.domain.exception.EntityNotFoundException;
-//import com.parkcontrol.persistence.entity.ParkingSpot;
-//import com.parkcontrol.persistence.repository.contract.ParkingSpotRepository;
-//import javafx.beans.property.SimpleIntegerProperty;
-//import javafx.beans.property.SimpleStringProperty;
-//import javafx.collections.FXCollections;
-//import javafx.collections.ObservableList;
-//import javafx.fxml.FXML;
-//import javafx.scene.control.*;
-//
-//import java.util.List;
-//
-//public class ParkingSpotController {
-//
-//  @FXML
-//  private TableView<ParkingSpot> parkingSpotTable;
-//  @FXML
-//  private TableColumn<ParkingSpot, Integer> sizedColumn;
-//  @FXML
-//  private TableColumn<ParkingSpot, String> locationColumn;
-//  @FXML
-//  private TableColumn<ParkingSpot, String> statusColumn;
-//  @FXML
-//  private TextField locationTextField;
-//  @FXML
-//  private ComboBox<String> statusComboBox;
-//  @FXML
-//  private TextArea messageArea;
-//
-//  private ParkingSpotRepository parkingSpotRepository;
-//  private ObservableList<ParkingSpot> parkingSpotList;
-//
-//  public ParkingSpotController(ParkingSpotRepository parkingSpotRepository) {
-//    this.parkingSpotRepository = parkingSpotRepository;
-//  }
-//
-//  @FXML
-//  public void initialize() {
-//    // Ініціалізація стовпців таблиці
-//  //  spotIdColumn.setCellValueFactory(cellData -> new SimpleIntegerProperty(cellData.getValue().spotId()).asObject());
-//    locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().location()));
-//    statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status()));
-//
-//    // Заповнення ComboBox статусом
-//    statusComboBox.getItems().addAll("FREE", "OCCUPIED");
-//
-//    // Завантаження даних у таблицю
-//    loadParkingSpots();
-//  }
-//
-//  private void loadParkingSpots() {
-//    List<ParkingSpot> spots = parkingSpotRepository.findAll();
-//    parkingSpotList = FXCollections.observableArrayList(spots);
-//    parkingSpotTable.setItems(parkingSpotList);
-//  }
-//
-//  @FXML
-//  private void handleAddParkingSpot() {
-//    String location = locationTextField.getText();
+package com.parkcontrol.presentation.controller;
+
+import com.parkcontrol.persistence.connection.DatabaseConnection;
+import com.parkcontrol.persistence.entity.ParkingSpot;
+import com.parkcontrol.persistence.repository.impl.ParkingSpotRepositoryImpl;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+
+import java.util.List;
+
+public class ParkingSpotController {
+
+  @FXML
+  private Button addButton;
+
+  @FXML
+  private Button clearFieldsButton;
+
+  @FXML
+  private Button deleteButton;
+
+  @FXML
+  private Button editButton;
+
+  @FXML
+  private TextArea locationArea;
+
+  @FXML
+  private TableColumn<ParkingSpot, String> locationColumn;
+
+  @FXML
+  private Label locationLabel;
+
+  @FXML
+  private TableView<ParkingSpot> parkingSpotTable;
+
+  @FXML
+  private ComboBox<String> sizeComboBox;
+
+  @FXML
+  private Label sizeLabel;
+
+  @FXML
+  private TableColumn<ParkingSpot, String> sizeColumn;
+
+  @FXML
+  private TableColumn<ParkingSpot, String> statusColumn;
+
+  @FXML
+  private ComboBox<String> statusComboBox;
+
+  @FXML
+  private Label statusLabel;
+
+  private List<ParkingSpot> parkingSpots=FXCollections.observableArrayList();;
+
+  private ParkingSpotRepositoryImpl parkingSpotRepository;
+
+  public ParkingSpotController() {
+    this.parkingSpotRepository = new ParkingSpotRepositoryImpl(new DatabaseConnection().getDataSource());
+  }
+
+  @FXML
+  public void initialize() {
+    locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().location()));
+    sizeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().size()));
+    statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status()));
+
+    sizeComboBox.getItems().addAll("Стандартне", "Велике", "Для інвалідів");
+    statusComboBox.getItems().addAll("Вільне", "Зайняте");
+
+    loadParkingSpots();
+
+    parkingSpotTable.getSelectionModel().selectedItemProperty().addListener(
+        (observable, oldValue, newValue) -> showParkingSpotDetails(newValue));
+
+    clearFieldsButton.setOnAction(event -> clearFields());
+  }
+
+  private void loadParkingSpots() {
+    parkingSpots.addAll(parkingSpotRepository.findAll());
+    parkingSpotTable.setItems(FXCollections.observableArrayList(parkingSpots));
+  }
+
+  private void showParkingSpotDetails(ParkingSpot parkingSpot) {
+    if (parkingSpot != null) {
+      locationArea.setText(parkingSpot.location());
+      statusComboBox.setValue(parkingSpot.status());
+      sizeComboBox.setValue(parkingSpot.size());
+    } else {
+      clearFields();
+    }
+  }
+
+  @FXML
+  private void addParkingSpot() {
+//    String location = locationArea.getText();
+//    String size = sizeComboBox.getValue();
 //    String status = statusComboBox.getValue();
 //
-//    if (location.isEmpty() || status == null) {
-//      messageArea.setText("Заповніть всі поля!");
-//      return;
-//    }
-//
-//    ParkingSpot newSpot = new ParkingSpot(0, location, status);
+//    ParkingSpot newSpot = new ParkingSpot(0,location, status, size);
 //    parkingSpotRepository.addParkingSpot(newSpot);
-//    messageArea.setText("Паркувальне місце додано!");
-//
-//    // Оновлення таблиці
-//    loadParkingSpots();
+//    parkingSpots.add(newSpot);
+//    parkingSpotTable.getItems().add(newSpot);
 //    clearFields();
-//  }
-//
-//  @FXML
-//  private void handleUpdateParkingSpot() {
+  }
+
+  @FXML
+  private void editParkingSpot() {
 //    ParkingSpot selectedSpot = parkingSpotTable.getSelectionModel().getSelectedItem();
-//    if (selectedSpot == null) {
-//      messageArea.setText("Виберіть паркувальне місце для оновлення!");
-//      return;
+//    if (selectedSpot != null) {
+//      selectedSpot.setLocation(locationArea.getText());
+//      selectedSpot.setSize(sizeComboBox.getValue());
+//      selectedSpot.setStatus(statusComboBox.getValue());
+//      parkingSpotRepository.updateParkingSpot(selectedSpot);
+//      parkingSpotTable.refresh();
+//      clearFields();
 //    }
-//
-//    String location = locationTextField.getText();
-//    String status = statusComboBox.getValue();
-//
-//    if (location.isEmpty() || status == null) {
-//      messageArea.setText("Заповніть всі поля!");
-//      return;
-//    }
-//
-//    ParkingSpot updatedSpot = new ParkingSpot(selectedSpot.spotId(), location, status);
-//    try {
-//      parkingSpotRepository.updateParkingSpot(updatedSpot);
-//      messageArea.setText("Паркувальне місце оновлено!");
-//    } catch (EntityNotFoundException e) {
-//      messageArea.setText(e.getMessage());
-//    }
-//
-//    // Оновлення таблиці
-//    loadParkingSpots();
-//    clearFields();
-//  }
-//
-//  @FXML
-//  private void handleDeleteParkingSpot() {
+  }
+
+  @FXML
+  private void deleteParkingSpot() {
 //    ParkingSpot selectedSpot = parkingSpotTable.getSelectionModel().getSelectedItem();
-//    if (selectedSpot == null) {
-//      messageArea.setText("Виберіть паркувальне місце для видалення!");
-//      return;
-//    }
-//
-//    try {
+//    if (selectedSpot != null) {
 //      parkingSpotRepository.deleteParkingSpot(selectedSpot.spotId());
-//      messageArea.setText("Паркувальне місце видалено!");
-//    } catch (EntityNotFoundException e) {
-//      messageArea.setText(e.getMessage());
+//      parkingSpots.remove(selectedSpot);
+//      parkingSpotTable.getItems().remove(selectedSpot);
+//      clearFields();
 //    }
-//
-//    // Оновлення таблиці
-//    loadParkingSpots();
-//    clearFields();
-//  }
-//
-//  private void clearFields() {
-//    locationTextField.clear();
-//    statusComboBox.setValue(null);
-//  }
-//}
+  }
+
+  @FXML
+  private void clearFields() {
+    locationArea.clear();
+    sizeComboBox.setValue(null);
+    statusComboBox.setValue(null);
+  }
+}

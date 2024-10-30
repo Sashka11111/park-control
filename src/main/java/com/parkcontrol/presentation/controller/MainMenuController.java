@@ -27,7 +27,7 @@ public class MainMenuController {
   private Button medicinesButton;
 
   @FXML
-  private Button savedMedicineButton;
+  private Button parkingSpotsButton;
 
   @FXML
   private Button categoryButton;
@@ -68,18 +68,19 @@ public class MainMenuController {
 //    medicinesButton.setOnAction(event -> showMedicinesPage());
 //    categoryButton.setOnAction(event -> showCategoryPage());
 //    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
-//    manageMedicinesButton.setOnAction(event -> showManageMedicinesPage());
+    parkingSpotsButton.setOnAction(event -> showParkingSpotsPage());
     usersManagementButton.setOnAction(event -> showUsersPage());
     changeAccountButton.setOnAction(event -> handleChangeAccountAction());
 
     User currentUser = AuthenticatedUser.getInstance().getCurrentUser();
-//    userName.setText(currentUser.username());
-//
-//    if (currentUser.role() != UserRole.ADMIN) {
-//      categoryButton.setVisible(false);
-//      manageMedicinesButton.setVisible(false);
-//      usersManagementButton.setVisible(false);
-//    }
+
+    userName.setText(currentUser.username());
+
+    if (currentUser.role() != UserRole.ADMIN) {
+      categoryButton.setVisible(false);
+      manageMedicinesButton.setVisible(false);
+      usersManagementButton.setVisible(false);
+    }
 
     Platform.runLater(() -> {
       Stage primaryStage = (Stage) contentArea.getScene().getWindow();
@@ -95,10 +96,10 @@ public class MainMenuController {
     stackPane.setLayoutY(buttonY);
   }
 
-//  private void showMedicinesPage() {
-//    moveStackPane(medicinesButton);
-//    loadFXML("/view/medicines.fxml");
-//  }
+  private void showParkingSpotsPage() {
+    moveStackPane(parkingSpotsButton);
+    loadFXML("/view/parkingSpot.fxml");
+  }
 //
 //  private void showSavedMedicinePage() {
 //    moveStackPane(savedMedicineButton);

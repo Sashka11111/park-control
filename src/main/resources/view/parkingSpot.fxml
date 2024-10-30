@@ -1,98 +1,78 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextArea?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
-<?import org.controlsfx.control.CheckComboBox?>
 
 <AnchorPane prefHeight="663.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.ParkingSpotController">
   <children>
-    <AnchorPane layoutX="521.0" layoutY="322.0" prefHeight="260.0" prefWidth="382.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 8;">
+    <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="158.0" prefWidth="897.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 8;">
       <children>
 
-        <Label fx:id="manufacturerLabel" layoutX="30.0" layoutY="16.0" text="Виробник:">
+        <Label fx:id="locationLabel" layoutX="30.0" layoutY="16.0" text="Розташування:">
           <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="18.0" />
           </font>
         </Label>
-        <TextField fx:id="manufacturerField" layoutX="124.0" layoutY="16.0" prefHeight="26.0" prefWidth="224.0" styleClass="textfield" stylesheets="@../design/style.css" />
 
-        <Label fx:id="formLabel" layoutX="30.0" layoutY="70.0" text="Форма:">
+        <Label fx:id="statusLabel" layoutX="404.0" layoutY="16.0" text="Статус:">
           <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="18.0" />
           </font>
         </Label>
-        <TextField fx:id="formField" layoutX="101.0" layoutY="70.0" prefHeight="26.0" prefWidth="246.0" styleClass="textfield" stylesheets="@../design/style.css" />
 
-        <Label fx:id="purposeLabel" layoutX="30.0" layoutY="123.0" text="Призначення:">
+        <Label fx:id="sizeLabel" layoutX="402.0" layoutY="84.0" text="Розмір:">
           <font>
-            <Font size="18.0" />
+            <Font name="Georgia" size="18.0" />
           </font>
         </Label>
-        <TextField fx:id="purposeField" layoutX="159.0" layoutY="123.0" prefHeight="26.0" prefWidth="188.0" styleClass="textfield" stylesheets="@../design/style.css" />
 
-        <Button fx:id="addButton" layoutX="43.0" layoutY="169.0" onAction="#handleAddAction" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #004C4C;" styleClass="side-btn" stylesheets="@../design/style.css" text="Додати" textFill="WHITE">
+        <Button fx:id="addButton" layoutX="638.0" layoutY="39.0" onAction="#addParkingSpot" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Додати">
           <font>
-            <Font size="14.0" />
+            <Font name="Georgia" size="14.0" />
           </font></Button>
-        <Button fx:id="editButton" layoutX="43.0" layoutY="216.0" onAction="#handleEditAction" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #004C4C;" styleClass="side-btn" stylesheets="@../design/style.css" text="Редагувати" textFill="WHITE">
+        <Button fx:id="editButton" layoutX="638.0" layoutY="86.0" onAction="#editParkingSpot" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Редагувати">
           <font>
-            <Font size="14.0" />
+            <Font name="Georgia" size="14.0" />
           </font></Button>
-        <Button fx:id="deleteButton" layoutX="166.0" layoutY="216.0" onAction="#handleDeleteAction" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #004C4C;" styleClass="side-btn" stylesheets="@../design/style.css" text="Видалити" textFill="WHITE">
+        <Button fx:id="deleteButton" layoutX="761.0" layoutY="86.0" onAction="#deleteParkingSpot" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Видалити">
           <font>
-            <Font size="14.0" />
+            <Font name="Georgia" size="14.0" />
           </font></Button>
-        <Button fx:id="clearFieldsButton" layoutX="166.0" layoutY="169.0" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #004C4C;" styleClass="side-btn" stylesheets="@../design/style.css" text="Очистити" textFill="WHITE">
+        <Button fx:id="clearFieldsButton" layoutX="761.0" layoutY="39.0" onAction="#clearFields" prefHeight="42.0" prefWidth="115.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Очистити">
           <font>
-            <Font size="14.0" />
+            <Font name="Georgia" size="14.0" />
           </font>
         </Button>
+        <TextArea fx:id="locationArea" layoutX="13.0" layoutY="44.0" prefHeight="102.0" prefWidth="348.0" style="-fx-background-color: transparent; -fx-border-color: #363a42; -fx-border-radius: 3;" />
+            <ComboBox fx:id="statusComboBox" layoutX="388.0" layoutY="47.0" prefHeight="26.0" prefWidth="230.0" />
+            <ComboBox fx:id="sizeComboBox" layoutX="388.0" layoutY="106.0" prefHeight="26.0" prefWidth="230.0" />
       </children>
     </AnchorPane>
-    <TableView fx:id="parkingSpotTable" layoutX="17.0" layoutY="16.0" prefHeight="630.0" prefWidth="496.0" stylesheets="@../design/style.css" tableMenuButtonVisible="true">
+    <TableView fx:id="parkingSpotTable" layoutX="17.0" layoutY="190.0" prefHeight="458.0" prefWidth="891.0" stylesheets="@../design/style.css">
       <columns>
-        <TableColumn fx:id="locationColumn" prefWidth="180.0" text="Розташування">
+        <TableColumn fx:id="locationColumn" prefWidth="335.9999942779541" text="Розташування">
           <cellValueFactory>
             <PropertyValueFactory property="name" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="statusColumn" prefWidth="150.0" text="Статус">
+        <TableColumn fx:id="statusColumn" prefWidth="222.40005493164062" text="Статус">
           <cellValueFactory>
             <PropertyValueFactory property="description" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="sizedColumn" prefWidth="150.0" text="Розмір">
+        <TableColumn fx:id="sizeColumn" prefWidth="327.199951171875" text="Розмір">
           <cellValueFactory>
             <PropertyValueFactory property="manufacturer" />
           </cellValueFactory>
         </TableColumn>
       </columns>
     </TableView>
-  <Label fx:id="nameLabel" layoutX="519.0" layoutY="46.0" text="Назва ліків:">
-    <font>
-      <Font size="18.0" />
-    </font>
-  </Label>
-  <TextField fx:id="nameField" layoutX="623.0" layoutY="46.0" prefHeight="26.0" prefWidth="269.0" styleClass="textfield" stylesheets="@../design/style.css" />
-
-        <Label fx:id="descriptionLabel" layoutX="519.0" layoutY="141.0" text="Опис:">
-    <font>
-      <Font size="18.0" />
-    </font>
-  </Label>
-  <TextArea fx:id="descriptionArea" layoutX="513.0" layoutY="181.0" prefHeight="102.0" prefWidth="398.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 3;" />
-  <Label fx:id="categoryLabel" layoutX="519.0" layoutY="101.0" text="Категорії:">
-    <font>
-      <Font size="18.0" />
-    </font>
-  </Label>
-  <CheckComboBox fx:id="categoryComboBox" layoutX="613.0" layoutY="103.0" prefHeight="26.0" prefWidth="280.0" style="-fx-background-color: transparent;" />
   </children>
 </AnchorPane>
