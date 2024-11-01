@@ -11,10 +11,10 @@
 
 <AnchorPane prefHeight="700.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.MainMenuController">
   <children>
-    <AnchorPane layoutY="30.0" prefHeight="670.0" prefWidth="178.0" style="-fx-background-color: #363a42;">
+    <AnchorPane layoutY="38.0" prefHeight="670.0" prefWidth="178.0" style="-fx-background-color: #363a42;">
       <children>
         <Line endX="78.40000915527344" endY="-1.0" layoutX="81.0" layoutY="115.0" startX="-67.0" startY="-1" stroke="WHITE" />
-        <Button fx:id="medicinesButton" graphicTextGap="10.0" layoutY="185.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Головна" textFill="WHITE">
+        <Button fx:id="bookingButton" graphicTextGap="10.0" layoutY="185.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Бронювання" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -37,7 +37,7 @@
             <Font name="Georgia" size="22.0" />
           </font>
         </Label>
-        <Button fx:id="parkingSpotsButton" layoutY="359.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Паркувальні місця" textFill="WHITE">
+        <Button fx:id="parkingSpotsButton" layoutY="301.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Паркувальні місця" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -49,31 +49,19 @@
                   </ImageView>
                </graphic>
         </Button>
-        <Button fx:id="categoryButton" graphicTextGap="8.0" layoutY="243.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Звіти та аналітика" textFill="WHITE">
+        <Button fx:id="myBookingsButton" graphicTextGap="8.0" layoutY="243.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Мої бронювання" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
                <graphic>
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../data/note.png" />
+                        <Image url="@../data/myBookings.png" />
                      </image>
                   </ImageView>
                </graphic>
         </Button>
-        <Button fx:id="manageMedicinesButton" graphicTextGap="10.0" layoutY="301.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Оплата " textFill="WHITE">
-          <font>
-            <Font size="14.0" />
-          </font>
-               <graphic>
-                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@../data/pay.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-        </Button>
-        <Button fx:id="usersManagementButton" graphicTextGap="8.0" layoutY="417.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Користувачі" textFill="WHITE">
+        <Button fx:id="usersManagementButton" graphicTextGap="8.0" layoutY="359.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Користувачі" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -85,7 +73,7 @@
                   </ImageView>
                </graphic>
         </Button>
-            <Button fx:id="changeAccountButton" graphicTextGap="8.0" layoutY="475.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Змінити акаунт" textFill="WHITE">
+            <Button fx:id="changeAccountButton" graphicTextGap="8.0" layoutY="611.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Змінити акаунт" textFill="WHITE">
                <font>
                   <Font size="14.0" />
                </font>
@@ -132,7 +120,7 @@
     </AnchorPane>
     <AnchorPane prefHeight="670.0" prefWidth="918.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="182.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="38.0">
       <children>
-        <StackPane fx:id="contentArea" prefHeight="663.0" prefWidth="918.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0" />
+        <StackPane fx:id="contentArea" prefHeight="670.0" prefWidth="918.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-7.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="0.0" />
       </children>
     </AnchorPane>
   </children>

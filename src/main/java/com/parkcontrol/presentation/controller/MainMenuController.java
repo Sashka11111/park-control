@@ -12,6 +12,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -24,16 +25,13 @@ import java.util.logging.Logger;
 public class MainMenuController {
 
   @FXML
-  private Button medicinesButton;
+  private Button bookingButton;
 
   @FXML
   private Button parkingSpotsButton;
 
   @FXML
-  private Button categoryButton;
-
-  @FXML
-  private Button manageMedicinesButton;
+  private Button myBookingsButton;
 
   @FXML
   private Button closeButton;
@@ -64,9 +62,8 @@ public class MainMenuController {
   void initialize() {
     closeButton.setOnAction(event -> System.exit(0));
     minimazeButton.setOnAction(event -> minimizeWindow());
-//    Medicines();
-//    medicinesButton.setOnAction(event -> showMedicinesPage());
-//    categoryButton.setOnAction(event -> showCategoryPage());
+    Booking();
+    bookingButton.setOnAction(event -> showBookingPage());
 //    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
     parkingSpotsButton.setOnAction(event -> showParkingSpotsPage());
     usersManagementButton.setOnAction(event -> showUsersPage());
@@ -77,8 +74,7 @@ public class MainMenuController {
     userName.setText(currentUser.username());
 
     if (currentUser.role() != UserRole.ADMIN) {
-      categoryButton.setVisible(false);
-      manageMedicinesButton.setVisible(false);
+      parkingSpotsButton.setVisible(false);
       usersManagementButton.setVisible(false);
     }
 
@@ -100,12 +96,12 @@ public class MainMenuController {
     moveStackPane(parkingSpotsButton);
     loadFXML("/view/parkingSpot.fxml");
   }
-//
-//  private void showSavedMedicinePage() {
-//    moveStackPane(savedMedicineButton);
-//    loadFXML("/view/savedMedicine.fxml");
-//  }
-//
+
+  private void showBookingPage() {
+    moveStackPane(bookingButton);
+    loadFXML("/view/booking.fxml");
+  }
+
 //  private void showManageMedicinesPage() {
 //    moveStackPane(manageMedicinesButton);
 //    loadFXML("/view/medicineManagement.fxml");
@@ -131,16 +127,16 @@ public class MainMenuController {
     }
   }
 
-//  private void Medicines() {
-//    try {
-//      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/medicines.fxml"));
-//      AnchorPane medicinesAnchorPane = loader.load();
-//      contentArea.getChildren().clear();
-//      contentArea.getChildren().add(medicinesAnchorPane);
-//    } catch (IOException e) {
-//      e.printStackTrace();
-//    }
-//  }
+  private void Booking() {
+    try {
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/booking.fxml"));
+      AnchorPane bookingsAnchorPane = loader.load();
+      contentArea.getChildren().clear();
+      contentArea.getChildren().add(bookingsAnchorPane);
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
+  }
 
   private void minimizeWindow() {
     if (stage == null) {

@@ -21,7 +21,6 @@ CREATE TABLE ParkingSpots (
     size VARCHAR(20) NOT NULL CHECK (size IN ('Стандартне', 'Велике', 'Для інвалідів'))  -- Розмір паркувального місця (стандартне, велике, для інвалідів)
 );
 
-
 -- Таблиця бронювань
 CREATE TABLE Reservations (
     reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -40,21 +39,4 @@ CREATE TABLE Payments (
     amount DECIMAL(10, 2) NOT NULL,
     payment_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (reservation_id) REFERENCES Reservations(reservation_id) ON DELETE CASCADE
-);
-
--- Таблиця звітів
-CREATE TABLE Reports (
-    report_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    report_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    report_type VARCHAR(50) NOT NULL,
-    report_details VARCHAR(500)
-);
-
--- Таблиця для зв'язку "багато до багатьох" між ParkingSpots і Reports
-CREATE TABLE ParkingSpotReports (
-    spot_id INTEGER NOT NULL,
-    report_id INTEGER NOT NULL,
-    PRIMARY KEY (spot_id, report_id),
-    FOREIGN KEY (spot_id) REFERENCES ParkingSpots(spot_id) ON DELETE CASCADE,
-    FOREIGN KEY (report_id) REFERENCES Reports(report_id) ON DELETE CASCADE
 );

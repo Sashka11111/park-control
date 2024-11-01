@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="663.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.ParkingSpotController">
+<AnchorPane prefHeight="670.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.ParkingSpotController">
   <children>
     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="158.0" prefWidth="897.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 8;">
       <children>
@@ -55,19 +55,19 @@
             <ComboBox fx:id="sizeComboBox" layoutX="388.0" layoutY="106.0" prefHeight="26.0" prefWidth="230.0" />
       </children>
     </AnchorPane>
-    <TableView fx:id="parkingSpotTable" layoutX="17.0" layoutY="190.0" prefHeight="458.0" prefWidth="891.0" stylesheets="@../design/style.css">
+    <TableView fx:id="parkingSpotTable" layoutX="10.0" layoutY="190.0" prefHeight="471.0" prefWidth="898.0" stylesheets="@../design/style.css">
       <columns>
         <TableColumn fx:id="locationColumn" prefWidth="335.9999942779541" text="Розташування">
           <cellValueFactory>
             <PropertyValueFactory property="name" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="statusColumn" prefWidth="222.40005493164062" text="Статус">
+        <TableColumn fx:id="statusColumn" prefWidth="268.0000305175781" text="Статус">
           <cellValueFactory>
             <PropertyValueFactory property="description" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="sizeColumn" prefWidth="327.199951171875" text="Розмір">
+        <TableColumn fx:id="sizeColumn" prefWidth="288.0" text="Розмір">
           <cellValueFactory>
             <PropertyValueFactory property="manufacturer" />
           </cellValueFactory>

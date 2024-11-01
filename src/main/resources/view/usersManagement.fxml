@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="663.0" prefWidth="924.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.UsersManagementController">
+<AnchorPane prefHeight="670.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.UsersManagementController">
   <children>
     <TableView fx:id="usersTableView" layoutX="46.0" layoutY="18.0" prefHeight="635.0" prefWidth="441.0" stylesheets="@../design/style.css">
       <columns>
@@ -24,7 +24,7 @@
     </TableView>
     <AnchorPane layoutX="538.0" layoutY="194.0" prefHeight="200.0" prefWidth="354.0" style="-fx-background-color: transparent; -fx-border-color: #363a42; -fx-border-radius: 8; -fx-border-width: 2;">
       <children>
-        <Button fx:id="changeRoleButton" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="134.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Змінити роль" textFill="WHITE">
+        <Button fx:id="changeRoleButton" layoutX="31.0" layoutY="143.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="134.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Змінити роль">
           <font>
             <Font size="14.0" />
           </font>
@@ -41,7 +41,7 @@
         </Label>
         <TextField fx:id="usernameField" layoutX="127.0" layoutY="38.0" prefHeight="26.0" prefWidth="220.0" styleClass="textfield" stylesheets="@../design/style.css" />
         <ComboBox fx:id="roleComboBox" layoutX="127.0" layoutY="80.0" prefHeight="26.0" prefWidth="220.0" />
-        <Button fx:id="deleteButton" layoutX="193.0" layoutY="143.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="134.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Видалити" textFill="WHITE">
+        <Button fx:id="deleteButton" layoutX="193.0" layoutY="143.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="134.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Видалити">
           <font>
             <Font size="14.0" />
           </font>
