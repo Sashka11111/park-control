@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.browniebytes.javafx.control.DateTimePicker?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="670.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.ReservationController">
+<children>
+  <AnchorPane layoutX="625.0" layoutY="14.0" prefHeight="648.0" prefWidth="278.0" styleClass="card" stylesheets="@../design/style.css">
+    <children>
+
+      <Label fx:id="startTimeLabel" layoutX="29.0" layoutY="307.0" text="Час початку:">
+        <font>
+          <Font name="Georgia" size="18.0" />
+        </font>
+      </Label>
+
+      <Label fx:id="endTimeLabel" layoutX="23.0" layoutY="378.0" text="Час закінчення:">
+        <font>
+          <Font name="Georgia" size="18.0" />
+        </font>
+      </Label>
+
+      <Button fx:id="bookingButton" layoutX="72.0" layoutY="591.0" prefHeight="42.0" prefWidth="142.0" style="-fx-background-color: #0dacba;" styleClass="side-btn" stylesheets="@../design/style.css" text="Забронювати">
+        <font>
+          <Font name="Georgia" size="14.0" />
+        </font></Button>
+            <Label fx:id="sectionLabel" layoutX="34.0" layoutY="3.0" text="Секція:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="levelLabel" layoutX="31.0" layoutY="66.0" text="Поверх:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="spotNumberLabel" layoutX="26.0" layoutY="129.0" text="Номер місця:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="sectionField" layoutX="25.0" layoutY="25.0" prefHeight="26.0" prefWidth="235.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="levelField" layoutX="25.0" layoutY="88.0" prefHeight="30.0" prefWidth="235.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="spotNumberField" layoutX="26.0" layoutY="140.0" prefHeight="30.0" prefWidth="235.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Label fx:id="statusLabel" layoutX="28.0" layoutY="184.0" text="Статус:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="sizeLabel" layoutX="26.0" layoutY="247.0" text="Розмір:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <ComboBox fx:id="statusComboBox" layoutX="24.0" layoutY="206.0" prefHeight="26.0" prefWidth="230.0" stylesheets="@../design/style.css" />
+            <ComboBox fx:id="sizeComboBox" layoutX="24.0" layoutY="269.0" prefHeight="26.0" prefWidth="230.0" styleClass="combo-box" stylesheets="@../design/style.css" />
+            <Label fx:id="priceLabel" layoutX="51.0" layoutY="534.0" text="Вартість паркування:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="price" alignment="CENTER" contentDisplay="CENTER" layoutX="5.0" layoutY="560.0" prefHeight="22.0" prefWidth="263.0" textAlignment="CENTER">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="timeLabel" layoutX="64.0" layoutY="480.0" text="Час паркування:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="time" alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="506.0" prefHeight="22.0" prefWidth="247.0" textAlignment="CENTER">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <DateTimePicker fx:id="endTimePicker" layoutX="22.0" layoutY="407.0" prefHeight="26.0" prefWidth="247.0" />
+            <DateTimePicker fx:id="startTimePicker" layoutX="22.0" layoutY="340.0" prefHeight="26.0" prefWidth="242.0" />
+            <Label fx:id="timeLabel1" layoutX="20.0" layoutY="449.0" text="1 година паркування - 10 грн">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+    </children>
+  </AnchorPane>
+  <HBox layoutX="47.0" layoutY="23.0" prefHeight="46.0" prefWidth="502.0" style="-fx-background-radius: 40; -fx-padding: 4; -fx-border-color: #808080; -fx-border-radius: 40;">
+    <children>
+      <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="780.0" promptText="Натисніть тут для пошуку" style="-fx-background-color: transparent;">
+        <font>
+          <Font size="14.0" />
+        </font>
+      </TextField>
+      <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="43.0" style="-fx-background-color: #363a42; -fx-background-radius: 20;" textFill="WHITE">
+        <font>
+          <Font size="14.0" />
+        </font>
+        <graphic>
+          <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+              <Image url="@../data/search.png" />
+            </image>
+          </ImageView>
+        </graphic>
+      </Button>
+    </children>
+  </HBox>
+      <AnchorPane layoutX="8.0" layoutY="83.0" prefHeight="583.0" prefWidth="606.0" styleClass="card" stylesheets="@../design/style.css">
+         <children>
+        <TableView fx:id="parkingSpotTable" layoutX="7.0" layoutY="8.0" prefHeight="570.0" prefWidth="592.0" stylesheets="@../design/style.css">
+          <columns>
+            <TableColumn fx:id="sectionColumn" prefWidth="115.0" text="Секція">
+              <cellValueFactory>
+                <PropertyValueFactory property="name" />
+              </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="levelColumn" prefWidth="115.0" text="Поверх">
+              <cellValueFactory>
+                <PropertyValueFactory property="description" />
+              </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="spotNumberColumn" prefWidth="115.0" text="Номер місця">
+              <cellValueFactory>
+                <PropertyValueFactory property="manufacturer" />
+              </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="statusColumn" prefWidth="120.0" text="Статус">
+              <cellValueFactory>
+                <PropertyValueFactory property="manufacturer" />
+              </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="sizeColumn" prefWidth="120.0" text="Розмір">
+              <cellValueFactory>
+                <PropertyValueFactory property="manufacturer" />
+              </cellValueFactory>
+            </TableColumn>
+          </columns>
+        </TableView>
+         </children>
+      </AnchorPane>
+  </children>
+</AnchorPane>

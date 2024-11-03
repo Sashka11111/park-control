@@ -38,12 +38,14 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
 
   @Override
   public void addParkingSpot(ParkingSpot parkingSpot) {
-    String query = "INSERT INTO ParkingSpots (location, status, size) VALUES (?, ?, ?)";
+    String query = "INSERT INTO ParkingSpots (section, level, spot_number, status, size) VALUES (?, ?, ?, ?, ?)";
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-      preparedStatement.setString(1, parkingSpot.location());
-      preparedStatement.setString(2, parkingSpot.status());
-      preparedStatement.setString(3, parkingSpot.size()); // Додаємо поле size
+      preparedStatement.setString(1, parkingSpot.section());
+      preparedStatement.setInt(2, parkingSpot.level());
+      preparedStatement.setString(3, parkingSpot.spotNumber());
+      preparedStatement.setString(4, parkingSpot.status());
+      preparedStatement.setString(5, parkingSpot.size());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -72,13 +74,15 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
 
   @Override
   public void updateParkingSpot(ParkingSpot parkingSpot) throws EntityNotFoundException {
-    String query = "UPDATE ParkingSpots SET location = ?, status = ?, size = ? WHERE spot_id = ?"; // Додаємо size
+    String query = "UPDATE ParkingSpots SET section = ?, level = ?, spot_number = ?, status = ?, size = ? WHERE spot_id = ?";
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-      preparedStatement.setString(1, parkingSpot.location());
-      preparedStatement.setString(2, parkingSpot.status());
-      preparedStatement.setString(3, parkingSpot.size()); // Додаємо поле size
-      preparedStatement.setInt(4, parkingSpot.spotId());
+      preparedStatement.setString(1, parkingSpot.section());
+      preparedStatement.setInt(2, parkingSpot.level());
+      preparedStatement.setString(3, parkingSpot.spotNumber());
+      preparedStatement.setString(4, parkingSpot.status());
+      preparedStatement.setString(5, parkingSpot.size());
+      preparedStatement.setInt(6, parkingSpot.spotId());
       int affectedRows = preparedStatement.executeUpdate();
       if (affectedRows == 0) {
         throw new EntityNotFoundException("Паркувальне місце з ID " + parkingSpot.spotId() + " не знайдено");
@@ -124,9 +128,11 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
 
   private ParkingSpot mapParkingSpot(ResultSet resultSet) throws SQLException {
     int spotId = resultSet.getInt("spot_id");
-    String location = resultSet.getString("location");
+    String section = resultSet.getString("section");
+    int level = resultSet.getInt("level");
+    String spotNumber = resultSet.getString("spot_number");
     String status = resultSet.getString("status");
-    String size = resultSet.getString("size"); // Додаємо поле size
-    return new ParkingSpot(spotId, location, status, size); // Включаємо size в конструктор
+    String size = resultSet.getString("size");
+    return new ParkingSpot(spotId, section, level, spotNumber, status, size);
   }
 }

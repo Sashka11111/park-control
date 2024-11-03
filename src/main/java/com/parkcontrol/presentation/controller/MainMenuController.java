@@ -99,7 +99,7 @@ public class MainMenuController {
 
   private void showBookingPage() {
     moveStackPane(bookingButton);
-    loadFXML("/view/booking.fxml");
+    loadFXML("/view/reservation.fxml");
   }
 
 //  private void showManageMedicinesPage() {
@@ -129,7 +129,7 @@ public class MainMenuController {
 
   private void Booking() {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/booking.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/reservation.fxml"));
       AnchorPane bookingsAnchorPane = loader.load();
       contentArea.getChildren().clear();
       contentArea.getChildren().add(bookingsAnchorPane);

@@ -2,41 +2,71 @@ package com.parkcontrol.domain.validation;
 
 import com.parkcontrol.persistence.entity.ParkingSpot;
 import java.util.List;
+import java.util.Optional;
 
 public class ParkingSpotValidator {
 
-  /**
-   * Метод для валідації об'єкта ParkingSpot.
-   *
-   * @param parkingSpot об'єкт ParkingSpot для валідації
-   * @param existingSpots список існуючих паркувальних місць для перевірки унікальності
-   * @return null, якщо всі поля об'єкта валідні; повідомлення про помилку, якщо валідація не пройшла
-   */
+  private static final String SECTION_REGEX = "[A-Z]";
+  private static final String[] VALID_STATUSES = {"Вільне", "Зайняте", "Зарезервоване"};
+  private static final String[] VALID_SIZES = {"Стандартне", "Велике", "Для інвалідів"};
+
   public static String validateParkingSpot(ParkingSpot parkingSpot, List<ParkingSpot> existingSpots) {
-    if (!validateLocation(parkingSpot.location(), existingSpots)) {
-      return "Локація не повинна повторювати та містити порожні значення.";
-    }
-    if (!validateStatus(parkingSpot.status())) {
-      return "Паркувальне місце може бути 'Вільне', або 'Зайняте'.";
-    }
-    if (!validateSize(parkingSpot.size())) {
-      return "Паркувальне місце може бути 'Стандартне', 'Велике', або 'Для інвалідів'.";
-    }
-    return null; // Усі поля валідні
+    return validateSection(parkingSpot.section())
+        .or(() -> validateLevel(parkingSpot.level()))
+        .or(() -> validateSpotNumber(parkingSpot.spotNumber()))
+        .or(() -> validateStatus(parkingSpot.status()))
+        .or(() -> validateSize(parkingSpot.size()))
+        .or(() -> validateUniqueSpot(parkingSpot, existingSpots))
+        .orElse(null); // Усі поля валідні
   }
 
-  private static boolean validateLocation(String location, List<ParkingSpot> existingSpots) {
-    if (location == null || location.trim().isEmpty()) {
-      return false;
+  private static Optional<String> validateSection(String section) {
+    if (section == null || section.trim().isEmpty() || !section.matches(SECTION_REGEX)) {
+      return Optional.of("Секція повинна містити одну букву (A, B, C...).");
     }
-    return existingSpots.stream().noneMatch(spot -> spot.location().equals(location));
+    return Optional.empty(); // Секція валідна
   }
 
-  private static boolean validateStatus(String status) {
-    return "Вільне".equals(status) || "Зайняте".equals(status);
+  private static Optional<String> validateLevel(int level) {
+    if (level < 1) {
+      return Optional.of("Поверх повинен бути більше або рівний 1.");
+    }
+    return Optional.empty(); // Поверх валідний
   }
 
-  private static boolean validateSize(String size) {
-    return "Стандартне".equals(size) || "Велике".equals(size) || "Для інвалідів".equals(size);
+  private static Optional<String> validateSpotNumber(String spotNumber) {
+    if (spotNumber == null || spotNumber.trim().isEmpty()) {
+      return Optional.of("Номер місця не може бути порожнім.");
+    }
+    return Optional.empty(); // Номер місця валідний
   }
+
+  private static Optional<String> validateStatus(String status) {
+    for (String validStatus : VALID_STATUSES) {
+      if (validStatus.equals(status)) {
+        return Optional.empty(); // Статус валідний
+      }
+    }
+    return Optional.of("Паркувальне місце може бути 'Вільне', 'Зайняте' або 'Зарезервоване'.");
+  }
+
+  private static Optional<String> validateSize(String size) {
+    for (String validSize : VALID_SIZES) {
+      if (validSize.equals(size)) {
+        return Optional.empty(); // Розмір валідний
+      }
+    }
+    return Optional.of("Паркувальне місце може бути 'Стандартне', 'Велике' або 'Для інвалідів'.");
+  }
+
+  private static Optional<String> validateUniqueSpot(ParkingSpot parkingSpot, List<ParkingSpot> existingSpots) {
+    boolean exists = existingSpots.stream().anyMatch(spot ->
+        spot.spotId() != parkingSpot.spotId() && // Перевіряємо, чи не те саме місце
+            spot.section().equals(parkingSpot.section()) &&
+            spot.level() == parkingSpot.level() &&
+            spot.spotNumber().equals(parkingSpot.spotNumber())
+    );
+    return exists ? Optional.of("Паркувальне місце з такими даними вже існує.") : Optional.empty();
+  }
+
 }

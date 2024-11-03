@@ -11,7 +11,7 @@
 
 .combo-box{
   -fx-background-color: transparent;
-  -fx-border-color:  #004C4C;
+  -fx-border-color:  #363a42;
   -fx-border-width: 0px 0px .4px 0px;
 }
 
@@ -81,4 +81,18 @@
   -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
   -fx-background-radius: 16;
   -fx-border-radius: 16;
+}
+.card {
+  -fx-background-color: white;
+  -fx-border-color: white;
+  -fx-background-radius: 16px;
+  -fx-border-radius: 16px;
+  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
+  -fx-wrap-text: true; /* Автоматичне перенесення тексту */
+  -fx-cursor: hand;
+}
+.date-time-picker {
+  -fx-background-color: transparent; /* Колір фону */
+  -fx-border-color: #363a42; /* Колір рамки */
+  -fx-border-width: 1px; /* Ширина рамки */
 }

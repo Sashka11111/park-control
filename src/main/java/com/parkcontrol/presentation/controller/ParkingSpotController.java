@@ -25,25 +25,34 @@ public class ParkingSpotController {
   private Button editButton;
 
   @FXML
-  private TextArea locationArea;
+  private TableColumn<ParkingSpot, String> levelColumn;
 
   @FXML
-  private TableColumn<ParkingSpot, String> locationColumn;
-
-  @FXML
-  private Label locationLabel;
+  private TextField levelField;
 
   @FXML
   private TableView<ParkingSpot> parkingSpotTable;
 
   @FXML
-  private ComboBox<String> sizeComboBox;
+  private TableColumn<ParkingSpot, String> sectionColumn;
 
   @FXML
-  private Label sizeLabel;
+  private TextField sectionField;
+
+  @FXML
+  private TextField searchTextField;
 
   @FXML
   private TableColumn<ParkingSpot, String> sizeColumn;
+
+  @FXML
+  private ComboBox<String> sizeComboBox;
+
+  @FXML
+  private TableColumn<ParkingSpot, String> spotNumberColumn;
+
+  @FXML
+  private TextField spotNumberField;
 
   @FXML
   private TableColumn<ParkingSpot, String> statusColumn;
@@ -51,10 +60,7 @@ public class ParkingSpotController {
   @FXML
   private ComboBox<String> statusComboBox;
 
-  @FXML
-  private Label statusLabel;
-
-  private List<ParkingSpot> parkingSpots = FXCollections.observableArrayList();
+  private List<ParkingSpot> parkingSpots;
   private ParkingSpotRepositoryImpl parkingSpotRepository;
 
   public ParkingSpotController() {
@@ -63,12 +69,14 @@ public class ParkingSpotController {
 
   @FXML
   public void initialize() {
-    locationColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().location()));
-    sizeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().size()));
+    sectionColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().section()));
+    levelColumn.setCellValueFactory(cellData -> new SimpleStringProperty(String.valueOf(cellData.getValue().level())));
+    spotNumberColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().spotNumber()));
     statusColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().status()));
+    sizeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().size()));
 
     sizeComboBox.getItems().addAll("Стандартне", "Велике", "Для інвалідів");
-    statusComboBox.getItems().addAll("Вільне", "Зайняте");
+    statusComboBox.getItems().addAll("Вільне", "Зайняте", "Зарезервоване");
 
     loadParkingSpots();
 
@@ -79,17 +87,19 @@ public class ParkingSpotController {
     addButton.setOnAction(event -> addParkingSpot());
     editButton.setOnAction(event -> editParkingSpot());
     deleteButton.setOnAction(event -> deleteParkingSpot());
+    searchTextField.textProperty().addListener((observable, oldValue, newValue) -> filterParkingSpots(newValue));
   }
 
   private void loadParkingSpots() {
-    parkingSpots.clear();
-    parkingSpots.addAll(parkingSpotRepository.findAll());
+    parkingSpots = parkingSpotRepository.findAll();
     parkingSpotTable.setItems(FXCollections.observableArrayList(parkingSpots));
   }
 
   private void showParkingSpotDetails(ParkingSpot parkingSpot) {
     if (parkingSpot != null) {
-      locationArea.setText(parkingSpot.location());
+      sectionField.setText(parkingSpot.section());
+      levelField.setText(String.valueOf(parkingSpot.level()));
+      spotNumberField.setText(parkingSpot.spotNumber());
       statusComboBox.setValue(parkingSpot.status());
       sizeComboBox.setValue(parkingSpot.size());
     } else {
@@ -99,49 +109,62 @@ public class ParkingSpotController {
 
   @FXML
   private void addParkingSpot() {
-    String location = locationArea.getText().trim();
-    String status = statusComboBox.getValue();
-    String size = sizeComboBox.getValue();
+    try {
+      String section = sectionField.getText().trim();
+      int level = Integer.parseInt(levelField.getText().trim());
+      String spotNumber = spotNumberField.getText().trim();
+      String status = statusComboBox.getValue();
+      String size = sizeComboBox.getValue();
 
-    ParkingSpot newParkingSpot = new ParkingSpot(0, location, status, size);
+      ParkingSpot newParkingSpot = new ParkingSpot(0, section, level, spotNumber, status, size);
+      List<ParkingSpot> existingParkingSpots = parkingSpotRepository.findAll();
+      String validationMessage = ParkingSpotValidator.validateParkingSpot(newParkingSpot, existingParkingSpots);
 
-    List<ParkingSpot> existingParkingSpots = parkingSpotRepository.findAll();
-    String validationMessage = ParkingSpotValidator.validateParkingSpot(newParkingSpot, existingParkingSpots);
-
-    if (validationMessage == null) {
-      try {
+      if (validationMessage == null) {
         parkingSpotRepository.addParkingSpot(newParkingSpot);
         loadParkingSpots();
         clearFields();
-      } catch (Exception e) {
-        AlertController.showAlert("Не вдалося зберегти нове паркувальне місце: " + e.getMessage());
+      } else {
+        AlertController.showAlert(validationMessage);
       }
-    } else {
-      AlertController.showAlert(validationMessage);
+    } catch (NumberFormatException e) {
+      AlertController.showAlert("Поверх повинен бути числом.");
+    } catch (Exception e) {
+      AlertController.showAlert("Не вдалося зберегти нове паркувальне місце: " + e.getMessage());
     }
   }
-
   @FXML
   private void editParkingSpot() {
     ParkingSpot selectedParkingSpot = parkingSpotTable.getSelectionModel().getSelectedItem();
     if (selectedParkingSpot != null) {
-      String location = locationArea.getText().trim();
-      String status = statusComboBox.getValue();
-      String size = sizeComboBox.getValue();
+      try {
+        String section = sectionField.getText().trim();
+        int level = Integer.parseInt(levelField.getText().trim());
+        String spotNumber = spotNumberField.getText().trim();
+        String status = statusComboBox.getValue();
+        String size = sizeComboBox.getValue();
 
-      ParkingSpot updatedParkingSpot = new ParkingSpot(selectedParkingSpot.spotId(), location, status, size);
+        ParkingSpot updatedParkingSpot = new ParkingSpot(
+            selectedParkingSpot.spotId(),
+            section,
+            level,
+            spotNumber,
+            status,
+            size
+        );
 
-      String validationMessage = ParkingSpotValidator.validateParkingSpot(updatedParkingSpot, parkingSpots);
-      if (validationMessage == null) {
-        try {
+        String validationMessage = ParkingSpotValidator.validateParkingSpot(updatedParkingSpot, parkingSpots);
+        if (validationMessage == null) {
           parkingSpotRepository.updateParkingSpot(updatedParkingSpot);
           loadParkingSpots();
           clearFields();
-        } catch (Exception e) {
-          AlertController.showAlert("Не вдалося оновити паркувальне місце: " + e.getMessage());
+        } else {
+          AlertController.showAlert(validationMessage);
         }
-      } else {
-        AlertController.showAlert(validationMessage);
+      } catch (NumberFormatException e) {
+        AlertController.showAlert("Поверх повинен бути числом.");
+      } catch (Exception e) {
+        AlertController.showAlert("Не вдалося оновити паркувальне місце: " + e.getMessage());
       }
     } else {
       AlertController.showAlert("Оберіть паркувальне місце для редагування.");
@@ -163,10 +186,44 @@ public class ParkingSpotController {
       AlertController.showAlert("Оберіть паркувальне місце для видалення.");
     }
   }
+  private void filterParkingSpots(String searchText) {
+    // Якщо searchText порожній, відновіть повний список
+    if (searchText.isEmpty()) {
+      parkingSpotTable.setItems(FXCollections.observableArrayList(parkingSpots));
+      return;
+    }
+
+    // Фільтруємо паркувальні місця
+    List<ParkingSpot> filteredList = parkingSpots.stream()
+        .filter(spot -> {
+          String section = spot.section().toLowerCase();
+          String spotNumber = spot.spotNumber().toLowerCase();
+          String status = spot.status().toLowerCase();
+          String size = spot.size().toLowerCase();
+          int level = spot.level(); // Якщо потрібно, можна також конвертувати рівень в строку, якщо це потрібно
+
+          // Повертаємо true, якщо будь-яке поле містить searchText
+          return section.contains(searchText.toLowerCase()) ||
+              spotNumber.contains(searchText.toLowerCase()) ||
+              status.contains(searchText.toLowerCase()) ||
+              size.contains(searchText.toLowerCase()) ||
+              String.valueOf(level).contains(searchText); // Пошук по рівню
+        })
+        .toList();
+    parkingSpotTable.setItems(FXCollections.observableArrayList(filteredList));
+
+    if (filteredList.isEmpty()) {
+      parkingSpotTable.setPlaceholder(new Label("На жаль таких даних немає"));
+    }
+
+  }
+
 
   @FXML
   private void clearFields() {
-    locationArea.clear();
+    sectionField.clear();
+    levelField.clear();
+    spotNumberField.clear();
     sizeComboBox.setValue(null);
     statusComboBox.setValue(null);
   }

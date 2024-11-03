@@ -15,10 +15,12 @@ CREATE TABLE Users (
 
 -- Таблиця паркувальних місць
 CREATE TABLE ParkingSpots (
-    spot_id INTEGER PRIMARY KEY AUTOINCREMENT,           -- Унікальний ідентифікатор паркувального місця
-    location VARCHAR(100) NOT NULL,                       -- Розташування паркувального місця
-    status VARCHAR(10) NOT NULL CHECK (status IN ('Вільне', 'Зайняте')),  -- Статус паркувального місця
-    size VARCHAR(20) NOT NULL CHECK (size IN ('Стандартне', 'Велике', 'Для інвалідів'))  -- Розмір паркувального місця (стандартне, велике, для інвалідів)
+    spot_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    section VARCHAR(5), -- Секція (A, B, C, ...)
+    level INT,  -- Поверх (1, 2, 3, ...)
+    spot_number VARCHAR(10) NOT NULL, -- Номер місця в рамках секції
+    status VARCHAR(15) NOT NULL CHECK (status IN ('Вільне', 'Зайняте', 'Зарезервоване')),
+    size VARCHAR(20) NOT NULL CHECK (size IN ('Стандартне', 'Велике', 'Для інвалідів'))
 );
 
 -- Таблиця бронювань

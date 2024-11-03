@@ -5,9 +5,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="670.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.ParkingSpotController">
@@ -15,7 +18,7 @@
     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="158.0" prefWidth="897.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 8;">
       <children>
 
-        <Label fx:id="locationLabel" layoutX="30.0" layoutY="16.0" text="Розташування:">
+        <Label fx:id="sectionLabel" layoutX="30.0" layoutY="16.0" text="Секція:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
@@ -50,29 +53,84 @@
             <Font name="Georgia" size="14.0" />
           </font>
         </Button>
-        <TextArea fx:id="locationArea" layoutX="13.0" layoutY="44.0" prefHeight="102.0" prefWidth="348.0" style="-fx-background-color: transparent; -fx-border-color: #363a42; -fx-border-radius: 3;" />
-            <ComboBox fx:id="statusComboBox" layoutX="388.0" layoutY="47.0" prefHeight="26.0" prefWidth="230.0" />
-            <ComboBox fx:id="sizeComboBox" layoutX="388.0" layoutY="106.0" prefHeight="26.0" prefWidth="230.0" />
+            <ComboBox fx:id="statusComboBox" layoutX="388.0" layoutY="47.0" prefHeight="26.0" prefWidth="230.0" stylesheets="@../design/style.css" />
+            <ComboBox fx:id="sizeComboBox" layoutX="388.0" layoutY="106.0" prefHeight="26.0" prefWidth="230.0" styleClass="combo-box" stylesheets="@../design/style.css" />
+            <Label fx:id="levelLabel" layoutX="30.0" layoutY="62.0" text="Поверх:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="spotNumberLabel" layoutX="30.0" layoutY="108.0" text="Номер місця:">
+               <font>
+                  <Font name="Georgia" size="18.0" />
+               </font>
+            </Label>
+            <TextField fx:id="sectionField" layoutX="110.0" layoutY="12.0" prefHeight="22.0" prefWidth="222.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="levelField" layoutX="110.0" layoutY="58.0" prefHeight="22.0" prefWidth="222.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="spotNumberField" layoutX="144.0" layoutY="101.0" prefHeight="30.0" prefWidth="192.0" style="-fx-border-color: #000000;" styleClass="textfield" stylesheets="@../design/style.css">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
       </children>
     </AnchorPane>
-    <TableView fx:id="parkingSpotTable" layoutX="10.0" layoutY="190.0" prefHeight="471.0" prefWidth="898.0" stylesheets="@../design/style.css">
+    <TableView fx:id="parkingSpotTable" layoutX="10.0" layoutY="239.0" prefHeight="422.0" prefWidth="898.0" stylesheets="@../design/style.css">
       <columns>
-        <TableColumn fx:id="locationColumn" prefWidth="335.9999942779541" text="Розташування">
+        <TableColumn fx:id="sectionColumn" prefWidth="164.0" text="Секція">
           <cellValueFactory>
             <PropertyValueFactory property="name" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="statusColumn" prefWidth="268.0000305175781" text="Статус">
+        <TableColumn fx:id="levelColumn" prefWidth="164.0" text="Поверх">
           <cellValueFactory>
             <PropertyValueFactory property="description" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="sizeColumn" prefWidth="288.0" text="Розмір">
+        <TableColumn fx:id="spotNumberColumn" prefWidth="164.0" text="Номер місця">
           <cellValueFactory>
             <PropertyValueFactory property="manufacturer" />
           </cellValueFactory>
         </TableColumn>
+            <TableColumn fx:id="statusColumn" prefWidth="200.0" text="Статус">
+               <cellValueFactory>
+                  <PropertyValueFactory property="manufacturer" />
+               </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="sizeColumn" prefWidth="200.0" text="Розмір">
+               <cellValueFactory>
+                  <PropertyValueFactory property="manufacturer" />
+               </cellValueFactory>
+            </TableColumn>
       </columns>
     </TableView>
+      <HBox layoutX="48.0" layoutY="184.0" prefHeight="46.0" prefWidth="762.0" style="-fx-background-radius: 40; -fx-padding: 4; -fx-border-color: #808080; -fx-border-radius: 40;">
+         <children>
+            <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="780.0" promptText="Натисніть тут для пошуку" style="-fx-background-color: transparent;">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </TextField>
+            <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="43.0" style="-fx-background-color: #363a42; -fx-background-radius: 20;" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../data/search.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+         </children>
+      </HBox>
   </children>
 </AnchorPane>
