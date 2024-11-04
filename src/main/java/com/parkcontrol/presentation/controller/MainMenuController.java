@@ -25,13 +25,13 @@ import java.util.logging.Logger;
 public class MainMenuController {
 
   @FXML
-  private Button bookingButton;
+  private Button reservationButton;
 
   @FXML
   private Button parkingSpotsButton;
 
   @FXML
-  private Button myBookingsButton;
+  private Button myReservationButton;
 
   @FXML
   private Button closeButton;
@@ -62,9 +62,9 @@ public class MainMenuController {
   void initialize() {
     closeButton.setOnAction(event -> System.exit(0));
     minimazeButton.setOnAction(event -> minimizeWindow());
-    Booking();
-    bookingButton.setOnAction(event -> showBookingPage());
-//    savedMedicineButton.setOnAction(event -> showSavedMedicinePage());
+    Reservation();
+    reservationButton.setOnAction(event -> showReservationPage());
+    myReservationButton.setOnAction(event -> showMyReservationPage());
     parkingSpotsButton.setOnAction(event -> showParkingSpotsPage());
     usersManagementButton.setOnAction(event -> showUsersPage());
     changeAccountButton.setOnAction(event -> handleChangeAccountAction());
@@ -97,20 +97,15 @@ public class MainMenuController {
     loadFXML("/view/parkingSpot.fxml");
   }
 
-  private void showBookingPage() {
-    moveStackPane(bookingButton);
+  private void showReservationPage() {
+    moveStackPane(reservationButton);
     loadFXML("/view/reservation.fxml");
   }
+  private void showMyReservationPage() {
+    moveStackPane(myReservationButton);
+    loadFXML("/view/myReservation.fxml");
+  }
 
-//  private void showManageMedicinesPage() {
-//    moveStackPane(manageMedicinesButton);
-//    loadFXML("/view/medicineManagement.fxml");
-//  }
-//
-//  private void showCategoryPage() {
-//    moveStackPane(categoryButton);
-//    loadFXML("/view/category.fxml");
-//  }
   private void showUsersPage() {
     moveStackPane(usersManagementButton);
     loadFXML("/view/usersManagement.fxml");
@@ -127,7 +122,7 @@ public class MainMenuController {
     }
   }
 
-  private void Booking() {
+  private void Reservation() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/reservation.fxml"));
       AnchorPane bookingsAnchorPane = loader.load();

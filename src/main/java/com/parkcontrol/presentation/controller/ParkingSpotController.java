@@ -76,7 +76,7 @@ public class ParkingSpotController {
     sizeColumn.setCellValueFactory(cellData -> new SimpleStringProperty(cellData.getValue().size()));
 
     sizeComboBox.getItems().addAll("Стандартне", "Велике", "Для інвалідів");
-    statusComboBox.getItems().addAll("Вільне", "Зайняте", "Зарезервоване");
+    statusComboBox.getItems().addAll("Вільне", "Зайняте");
 
     loadParkingSpots();
 

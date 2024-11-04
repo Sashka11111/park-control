@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="670.0" prefWidth="918.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.MyReservationController">
+  <children>
+
+    <!-- Пошук бронювань -->
+    <HBox layoutX="47.0" layoutY="23.0" prefHeight="46.0" prefWidth="502.0" style="-fx-background-radius: 40; -fx-padding: 4; -fx-border-color: #808080; -fx-border-radius: 40;">
+      <children>
+        <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="780.0" promptText="Натисніть тут для пошуку" style="-fx-background-color: transparent;">
+          <font>
+            <Font size="14.0" />
+          </font>
+        </TextField>
+        <Button mnemonicParsing="false" prefHeight="29.0" prefWidth="43.0" style="-fx-background-color: #363a42; -fx-background-radius: 20;" textFill="WHITE">
+          <font>
+            <Font size="14.0" />
+          </font>
+          <graphic>
+            <ImageView fitHeight="25.0" fitWidth="26.0" pickOnBounds="true" preserveRatio="true">
+              <image>
+                <Image url="@../data/search.png" />
+              </image>
+            </ImageView>
+          </graphic>
+        </Button>
+      </children>
+    </HBox>
+
+    <!-- Таблиця бронювань -->
+    <TableView fx:id="reservationTable" layoutX="12.0" layoutY="81.0" prefHeight="443.0" prefWidth="898.0" stylesheets="@../design/style.css">
+      <columns>
+        <TableColumn fx:id="sectionColumn" prefWidth="117.0" text="Секція">
+          <cellValueFactory>
+            <PropertyValueFactory property="section" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="levelColumn" prefWidth="117.0" text="Поверх">
+          <cellValueFactory>
+            <PropertyValueFactory property="level" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="spotNumberColumn" prefWidth="117.0" text="Номер місця">
+          <cellValueFactory>
+            <PropertyValueFactory property="spotNumber" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="statusColumn" prefWidth="119.0" text="Статус">
+          <cellValueFactory>
+            <PropertyValueFactory property="status" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="sizeColumn" prefWidth="119.0" text="Розмір">
+          <cellValueFactory>
+            <PropertyValueFactory property="size" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="startTimeColumn" prefWidth="150.0" text="Час початку">
+          <cellValueFactory>
+            <PropertyValueFactory property="startTime" />
+          </cellValueFactory>
+        </TableColumn>
+        <TableColumn fx:id="endTimeColumn" prefWidth="150.0" text="Час закінчення">
+          <cellValueFactory>
+            <PropertyValueFactory property="endTime" />
+          </cellValueFactory>
+        </TableColumn>
+      </columns>
+    </TableView>
+   <Button fx:id="cancelBookingButton" layoutX="210.0" layoutY="547.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c;" text="Скасувати бронювання">
+     <font>
+       <Font size="14.0" />
+     </font>
+   </Button>
+   <Button fx:id="editBookingButton" layoutX="61.0" layoutY="547.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0dacba;" text="Редагувати бронювання">
+     <font>
+       <Font size="14.0" />
+     </font>
+   </Button>
+  </children>
+</AnchorPane>

@@ -5,7 +5,7 @@ public record ParkingSpot(
     String section,   // Секція паркінгу (A, B, C, ...)
     int level,        // Поверх (1, 2, 3, ...)
     String spotNumber, // Номер місця в секції
-    String status,     // Статус: "Вільне", "Зайняте", "Зарезервоване"
+    String status,     // Статус: "Вільне", "Зайняте"
     String size        // Розмір: "Стандартне", "Велике", "Для інвалідів"
 ) implements Comparable<ParkingSpot> {
 

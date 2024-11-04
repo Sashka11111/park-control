@@ -9,6 +9,7 @@ public interface ParkingSpotRepository {
   void addParkingSpot(ParkingSpot parkingSpot); // Додати нове паркувальне місце
   ParkingSpot findById(int spotId) throws EntityNotFoundException; // Знайти паркувальне місце за ID
   void updateParkingSpot(ParkingSpot parkingSpot) throws EntityNotFoundException; // Оновити інформацію про паркувальне місце
+  boolean isParkingSpotAvailable(int spotId) throws EntityNotFoundException;
   void deleteParkingSpot(int spotId) throws EntityNotFoundException; // Видалити паркувальне місце за ID
   List<ParkingSpot> findByStatus(String status); // Знайти паркувальні місця за статусом
 }

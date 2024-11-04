@@ -87,7 +87,7 @@
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="timeLabel" layoutX="64.0" layoutY="480.0" text="Час паркування:">
+            <Label layoutX="64.0" layoutY="480.0" text="Час паркування:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
@@ -99,7 +99,7 @@
             </Label>
             <DateTimePicker fx:id="endTimePicker" layoutX="22.0" layoutY="407.0" prefHeight="26.0" prefWidth="247.0" />
             <DateTimePicker fx:id="startTimePicker" layoutX="22.0" layoutY="340.0" prefHeight="26.0" prefWidth="242.0" />
-            <Label fx:id="timeLabel1" layoutX="20.0" layoutY="449.0" text="1 година паркування - 10 грн">
+            <Label layoutX="20.0" layoutY="449.0" text="1 година паркування - 10 грн">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>

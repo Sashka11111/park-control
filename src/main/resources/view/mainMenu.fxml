@@ -14,7 +14,7 @@
     <AnchorPane layoutY="38.0" prefHeight="670.0" prefWidth="178.0" style="-fx-background-color: #363a42;">
       <children>
         <Line endX="78.40000915527344" endY="-1.0" layoutX="81.0" layoutY="115.0" startX="-67.0" startY="-1" stroke="WHITE" />
-        <Button fx:id="bookingButton" graphicTextGap="10.0" layoutY="185.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Бронювання" textFill="WHITE">
+        <Button fx:id="reservationButton" graphicTextGap="10.0" layoutY="185.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Бронювання" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -49,7 +49,7 @@
                   </ImageView>
                </graphic>
         </Button>
-        <Button fx:id="myBookingsButton" graphicTextGap="8.0" layoutY="243.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Мої бронювання" textFill="WHITE">
+        <Button fx:id="myReservationButton" graphicTextGap="8.0" layoutY="243.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Мої бронювання" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>

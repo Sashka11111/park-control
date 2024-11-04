@@ -7,7 +7,7 @@ import java.util.Optional;
 public class ParkingSpotValidator {
 
   private static final String SECTION_REGEX = "[A-Z]";
-  private static final String[] VALID_STATUSES = {"Вільне", "Зайняте", "Зарезервоване"};
+  private static final String[] VALID_STATUSES = {"Вільне", "Зайняте"};
   private static final String[] VALID_SIZES = {"Стандартне", "Велике", "Для інвалідів"};
 
   public static String validateParkingSpot(ParkingSpot parkingSpot, List<ParkingSpot> existingSpots) {
@@ -47,7 +47,7 @@ public class ParkingSpotValidator {
         return Optional.empty(); // Статус валідний
       }
     }
-    return Optional.of("Паркувальне місце може бути 'Вільне', 'Зайняте' або 'Зарезервоване'.");
+    return Optional.of("Паркувальне місце може бути 'Вільне' або 'Зайняте'");
   }
 
   private static Optional<String> validateSize(String size) {
