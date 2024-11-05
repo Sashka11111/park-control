@@ -1,9 +1,6 @@
 DROP TABLE IF EXISTS Users;
 DROP TABLE IF EXISTS ParkingSpots;
 DROP TABLE IF EXISTS Reservations;
-DROP TABLE IF EXISTS Payments;
-DROP TABLE IF EXISTS Reports;
-DROP TABLE IF EXISTS ParkingSpotReports;
 
 -- Таблиця користувачів
 CREATE TABLE Users (
@@ -28,8 +25,10 @@ CREATE TABLE Reservations (
     reservation_id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
     spot_id INTEGER NOT NULL,
-    start_time DATETIME  NOT NULL,
-    end_time DATETIME  NOT NULL,
+    start_time DATETIME NOT NULL,
+    end_time DATETIME NOT NULL,
+    cost REAL NOT NULL,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
     FOREIGN KEY (spot_id) REFERENCES ParkingSpots(spot_id) ON DELETE SET NULL
 );
+

@@ -3,6 +3,7 @@ package com.parkcontrol.persistence.repository.contract;
 import com.parkcontrol.domain.exception.EntityNotFoundException;
 import com.parkcontrol.persistence.entity.Reservation;
 import java.util.List;
+import java.util.Map;
 
 public interface ReservationRepository {
 
@@ -17,4 +18,6 @@ public interface ReservationRepository {
   void deleteReservation(int reservationId) throws EntityNotFoundException; // Видалити бронювання за ID
 
   List<Reservation> findByUserId(int userId); // Знайти бронювання за ID користувача
+
+  List<Map<String, Object>> findAllReservationsWithParkingSpots(); // Знайти всі бронювання з даними паркувальних місць
 }

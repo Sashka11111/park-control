@@ -131,7 +131,6 @@ public class ReservationController {
     endTimePicker.dateTimeProperty().addListener((observable, oldValue, newValue) -> calculateCostAndShow());
     bookingButton.setOnAction(event -> handleBooking());
   }
-
   private void calculateCostAndShow() {
     LocalDateTime startDateTime = startTimePicker.dateTimeProperty().get();
     LocalDateTime endDateTime = endTimePicker.dateTimeProperty().get();
@@ -142,7 +141,7 @@ public class ReservationController {
       return;
     }
 
-    Reservation reservation = new Reservation(0, 0, 0, startDateTime, endDateTime);
+    Reservation reservation = new Reservation(0, 0, 0, startDateTime, endDateTime, 0);
     String validationMessage = ReservationValidator.validateReservationDates(reservation);
 
     if (validationMessage != null) {
@@ -158,9 +157,10 @@ public class ReservationController {
     String parkingTime = hours + " годин " + minutes + " хвилин";
     time.setText(parkingTime);
 
-    double cost = calculateCost(hours);
-    price.setText(cost + " грн.");
+    double calculatedCost = calculateCost(hours);
+    price.setText(calculatedCost + " грн.");
   }
+
 
   private void loadParkingSpots() {
     parkingSpots = parkingSpotRepository.findAll();
@@ -232,8 +232,9 @@ public class ReservationController {
 
     LocalDateTime startDateTime = startTimePicker.dateTimeProperty().get();
     LocalDateTime endDateTime = endTimePicker.dateTimeProperty().get();
+    double calculatedCost = calculateCost(Duration.between(startDateTime, endDateTime).toHours());
 
-    Reservation tempReservation = new Reservation(0, currentUser.id(), selectedSpot.spotId(), startDateTime, endDateTime);
+    Reservation tempReservation = new Reservation(0, currentUser.id(), selectedSpot.spotId(), startDateTime, endDateTime,calculatedCost);
     String validationMessage = ReservationValidator.validateReservationDates(tempReservation);
     if (validationMessage != null) {
       AlertController.showAlert(validationMessage);
@@ -245,7 +246,8 @@ public class ReservationController {
         currentUser.id(),
         selectedSpot.spotId(),
         startDateTime,
-        endDateTime
+        endDateTime,
+        calculatedCost
     );
 
     try {

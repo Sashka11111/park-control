@@ -40,41 +40,46 @@
     <!-- Таблиця бронювань -->
     <TableView fx:id="reservationTable" layoutX="12.0" layoutY="81.0" prefHeight="443.0" prefWidth="898.0" stylesheets="@../design/style.css">
       <columns>
-        <TableColumn fx:id="sectionColumn" prefWidth="117.0" text="Секція">
+        <TableColumn fx:id="sectionColumn" prefWidth="111.0" text="Секція">
           <cellValueFactory>
             <PropertyValueFactory property="section" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="levelColumn" prefWidth="117.0" text="Поверх">
+        <TableColumn fx:id="levelColumn" prefWidth="111.0" text="Поверх">
           <cellValueFactory>
             <PropertyValueFactory property="level" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="spotNumberColumn" prefWidth="117.0" text="Номер місця">
+        <TableColumn fx:id="spotNumberColumn" prefWidth="111.0" text="Номер місця">
           <cellValueFactory>
             <PropertyValueFactory property="spotNumber" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="statusColumn" prefWidth="119.0" text="Статус">
+        <TableColumn fx:id="statusColumn" prefWidth="111.0" text="Статус">
           <cellValueFactory>
             <PropertyValueFactory property="status" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="sizeColumn" prefWidth="119.0" text="Розмір">
+        <TableColumn fx:id="sizeColumn" prefWidth="111.0" text="Розмір">
           <cellValueFactory>
             <PropertyValueFactory property="size" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="startTimeColumn" prefWidth="150.0" text="Час початку">
+        <TableColumn fx:id="startTimeColumn" prefWidth="111.0" text="Час початку">
           <cellValueFactory>
             <PropertyValueFactory property="startTime" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="endTimeColumn" prefWidth="150.0" text="Час закінчення">
+        <TableColumn fx:id="endTimeColumn" prefWidth="111.0" text="Час закінчення">
           <cellValueFactory>
             <PropertyValueFactory property="endTime" />
           </cellValueFactory>
         </TableColumn>
+            <TableColumn fx:id="costColumn" prefWidth="113.0" text="Ціна">
+               <cellValueFactory>
+                  <PropertyValueFactory property="endTime" />
+               </cellValueFactory>
+            </TableColumn>
       </columns>
     </TableView>
    <Button fx:id="cancelBookingButton" layoutX="210.0" layoutY="547.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c;" text="Скасувати бронювання">

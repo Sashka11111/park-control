@@ -1,15 +1,16 @@
 package com.parkcontrol.persistence.entity;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public record Reservation(
     int reservationId,
     int userId,
     int spotId,
     LocalDateTime startTime,
-    LocalDateTime endTime
+    LocalDateTime endTime,
+    double cost
 ) implements Comparable<Reservation> {
+
   @Override
   public int compareTo(Reservation other) {
     return Integer.compare(this.reservationId, other.reservationId);

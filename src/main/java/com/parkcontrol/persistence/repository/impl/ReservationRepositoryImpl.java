@@ -7,9 +7,12 @@ import com.parkcontrol.persistence.repository.contract.ReservationRepository;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.sql.DataSource;
 
 public class ReservationRepositoryImpl implements ReservationRepository {
@@ -39,13 +42,14 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
   @Override
   public void addReservation(Reservation reservation) {
-    String query = "INSERT INTO Reservations (user_id, spot_id, start_time, end_time) VALUES (?, ?, ?, ?)";
+    String query = "INSERT INTO Reservations (user_id, spot_id, start_time, end_time, cost) VALUES (?, ?, ?, ?, ?)";
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setInt(1, reservation.userId());
       preparedStatement.setInt(2, reservation.spotId());
-      preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(reservation.startTime())); // Конвертація LocalDateTime у Timestamp
-      preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(reservation.endTime())); // Конвертація LocalDateTime у Timestamp
+      preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(reservation.startTime()));
+      preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(reservation.endTime()));
+      preparedStatement.setDouble(5, reservation.cost());
       preparedStatement.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
@@ -74,14 +78,15 @@ public class ReservationRepositoryImpl implements ReservationRepository {
 
   @Override
   public void updateReservation(Reservation reservation) throws EntityNotFoundException {
-    String query = "UPDATE Reservations SET user_id = ?, spot_id = ?, start_time = ?, end_time = ? WHERE reservation_id = ?";
+    String query = "UPDATE Reservations SET user_id = ?, spot_id = ?, start_time = ?, end_time = ?, cost = ? WHERE reservation_id = ?";
     try (Connection connection = dataSource.getConnection();
         PreparedStatement preparedStatement = connection.prepareStatement(query)) {
       preparedStatement.setInt(1, reservation.userId());
       preparedStatement.setInt(2, reservation.spotId());
       preparedStatement.setTimestamp(3, java.sql.Timestamp.valueOf(reservation.startTime()));
       preparedStatement.setTimestamp(4, java.sql.Timestamp.valueOf(reservation.endTime()));
-      preparedStatement.setInt(5, reservation.reservationId());
+      preparedStatement.setDouble(5, reservation.cost());
+      preparedStatement.setInt(6, reservation.reservationId());
       int affectedRows = preparedStatement.executeUpdate();
       if (affectedRows == 0) {
         throw new EntityNotFoundException("Бронювання з ID " + reservation.reservationId() + " не знайдено");
@@ -124,18 +129,45 @@ public class ReservationRepositoryImpl implements ReservationRepository {
     }
     return reservations;
   }
+  @Override
+  public List<Map<String, Object>> findAllReservationsWithParkingSpots() {
+    List<Map<String, Object>> results = new ArrayList<>();
+    String query = "SELECT * FROM Reservations JOIN ParkingSpots ON ParkingSpots.spot_id = Reservations.reservation_id";
 
+    try (Connection connection = dataSource.getConnection();
+        PreparedStatement statement = connection.prepareStatement(query);
+        ResultSet resultSet = statement.executeQuery()) {
+
+      // Читаємо метадані, щоб отримати назви всіх колонок
+      ResultSetMetaData metaData = resultSet.getMetaData();
+      int columnCount = metaData.getColumnCount();
+
+      while (resultSet.next()) {
+        Map<String, Object> row = new HashMap<>();
+        for (int i = 1; i <= columnCount; i++) {
+          String columnName = metaData.getColumnName(i);
+          Object columnValue = resultSet.getObject(i);
+          row.put(columnName, columnValue);
+        }
+        results.add(row);
+      }
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+    return results;
+  }
   private Reservation mapReservation(ResultSet resultSet) throws SQLException {
     int reservationId = resultSet.getInt("reservation_id");
     int userId = resultSet.getInt("user_id");
     int spotId = resultSet.getInt("spot_id");
     java.sql.Timestamp startTimeStamp = resultSet.getTimestamp("start_time");
     java.sql.Timestamp endTimeStamp = resultSet.getTimestamp("end_time");
+    double cost = resultSet.getDouble("cost");
 
     // Конвертація Timestamp у LocalDateTime
     java.time.LocalDateTime startTime = startTimeStamp.toLocalDateTime();
     java.time.LocalDateTime endTime = endTimeStamp.toLocalDateTime();
 
-    return new Reservation(reservationId, userId, spotId, startTime, endTime);
+    return new Reservation(reservationId, userId, spotId, startTime, endTime, cost);
   }
 }
