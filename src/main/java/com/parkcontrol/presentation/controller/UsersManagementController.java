@@ -31,10 +31,6 @@ public class UsersManagementController {
   private TextField usernameField;
   @FXML
   private Button deleteButton;
-  @FXML
-  private Label roleLabel;
-  @FXML
-  private Label userLabel;
 
   private final UserRepository userRepository;
 

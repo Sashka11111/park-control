@@ -18,19 +18,19 @@
     <AnchorPane layoutX="14.0" layoutY="14.0" prefHeight="158.0" prefWidth="897.0" style="-fx-background-color: transparent; -fx-border-color: #004C4C; -fx-border-radius: 8;">
       <children>
 
-        <Label fx:id="sectionLabel" layoutX="30.0" layoutY="16.0" text="Секція:">
+        <Label layoutX="30.0" layoutY="16.0" text="Секція:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
         </Label>
 
-        <Label fx:id="statusLabel" layoutX="404.0" layoutY="16.0" text="Статус:">
+        <Label layoutX="404.0" layoutY="16.0" text="Статус:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
         </Label>
 
-        <Label fx:id="sizeLabel" layoutX="402.0" layoutY="84.0" text="Розмір:">
+        <Label layoutX="402.0" layoutY="84.0" text="Розмір:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
@@ -55,12 +55,12 @@
         </Button>
             <ComboBox fx:id="statusComboBox" layoutX="388.0" layoutY="47.0" prefHeight="26.0" prefWidth="230.0" stylesheets="@../design/style.css" />
             <ComboBox fx:id="sizeComboBox" layoutX="388.0" layoutY="106.0" prefHeight="26.0" prefWidth="230.0" styleClass="combo-box" stylesheets="@../design/style.css" />
-            <Label fx:id="levelLabel" layoutX="30.0" layoutY="62.0" text="Поверх:">
+            <Label layoutX="30.0" layoutY="62.0" text="Поверх:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="spotNumberLabel" layoutX="30.0" layoutY="108.0" text="Номер місця:">
+            <Label layoutX="30.0" layoutY="108.0" text="Номер місця:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>

@@ -9,11 +9,11 @@
 
 <AnchorPane prefHeight="220.0" prefWidth="385.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.parkcontrol.presentation.controller.AlertController">
   <children>
-    <ImageView fx:id="icon" fitHeight="40.0" fitWidth="40.0">
+    <ImageView fitHeight="40.0" fitWidth="40.0">
       <image>
         <Image url="@../data/icon.png" />
       </image></ImageView>
-    <Label fx:id="message" alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="6.0" prefHeight="27.0" prefWidth="216.0" text="Повідомлення" textAlignment="CENTER">
+    <Label alignment="CENTER" contentDisplay="CENTER" layoutX="85.0" layoutY="6.0" prefHeight="27.0" prefWidth="216.0" text="Повідомлення" textAlignment="CENTER">
       <font>
         <Font name="Georgia" size="18.0" />
       </font>

@@ -16,23 +16,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class RegistrationController {
 
   @FXML
-  private Button SignInButton;
+  private Button signInButton;
 
   @FXML
-  private Hyperlink SignUpHyperlink;
+  private Hyperlink signUpHyperlink;
 
   @FXML
   private Button btnClose;
-
-  @FXML
-  private Label errorMessageLabel;
 
   @FXML
   private TextField loginField;
@@ -50,13 +46,13 @@ public class RegistrationController {
   void initialize() {
     btnClose.setOnAction(event -> System.exit(0));
 
-    SignUpHyperlink.setOnAction(event -> switchScene("/view/authorization.fxml"));
+    signUpHyperlink.setOnAction(event -> switchScene("/view/authorization.fxml"));
 
-    SignInButton.setOnAction(event -> handleSignIn());
+    signInButton.setOnAction(event -> handleSignIn());
   }
 
   private void switchScene(String fxmlPath) {
-    Scene currentScene = SignUpHyperlink.getScene();
+    Scene currentScene = signUpHyperlink.getScene();
     FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
     try {
       Parent root = loader.load();

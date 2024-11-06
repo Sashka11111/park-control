@@ -91,27 +91,6 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
       e.printStackTrace();
     }
   }
-  @Override
-  public boolean isParkingSpotAvailable(int spotId) throws EntityNotFoundException {
-    String query = "SELECT status FROM ParkingSpots WHERE spot_id = ?";
-    try (Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-      preparedStatement.setInt(1, spotId);
-      try (ResultSet resultSet = preparedStatement.executeQuery()) {
-        if (resultSet.next()) {
-          String status = resultSet.getString("status");
-          return "Доступне".equals(status); // Перевірка на доступність
-        } else {
-          throw new EntityNotFoundException("Парковочне місце з id " + spotId + " не знайдено.");
-        }
-      }
-    } catch (SQLException e) {
-      System.err.println("Помилка при доступі до бази даних: " + e.getMessage());
-      throw new RuntimeException("Не вдалося перевірити доступність парковочного місця.", e);
-    }
-  }
-
 
   @Override
   public void deleteParkingSpot(int spotId) throws EntityNotFoundException {
@@ -126,25 +105,6 @@ public class ParkingSpotRepositoryImpl implements ParkingSpotRepository {
     } catch (SQLException e) {
       e.printStackTrace();
     }
-  }
-
-  @Override
-  public List<ParkingSpot> findByStatus(String status) {
-    List<ParkingSpot> parkingSpots = new ArrayList<>();
-    String query = "SELECT * FROM ParkingSpots WHERE status = ?";
-    try (Connection connection = dataSource.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-      preparedStatement.setString(1, status);
-      try (ResultSet resultSet = preparedStatement.executeQuery()) {
-        while (resultSet.next()) {
-          ParkingSpot parkingSpot = mapParkingSpot(resultSet);
-          parkingSpots.add(parkingSpot);
-        }
-      }
-    } catch (SQLException e) {
-      e.printStackTrace();
-    }
-    return parkingSpots;
   }
 
   private ParkingSpot mapParkingSpot(ResultSet resultSet) throws SQLException {

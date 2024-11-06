@@ -62,7 +62,7 @@ public class MainMenuController {
   void initialize() {
     closeButton.setOnAction(event -> System.exit(0));
     minimazeButton.setOnAction(event -> minimizeWindow());
-    Reservation();
+    showReservation();
     reservationButton.setOnAction(event -> showReservationPage());
     myReservationButton.setOnAction(event -> showMyReservationPage());
     parkingSpotsButton.setOnAction(event -> showParkingSpotsPage());
@@ -122,7 +122,7 @@ public class MainMenuController {
     }
   }
 
-  private void Reservation() {
+  private void showReservation() {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/reservation.fxml"));
       AnchorPane bookingsAnchorPane = loader.load();

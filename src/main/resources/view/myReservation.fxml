@@ -15,7 +15,7 @@
   <children>
 
     <!-- Пошук бронювань -->
-    <HBox layoutX="47.0" layoutY="23.0" prefHeight="46.0" prefWidth="502.0" style="-fx-background-radius: 40; -fx-padding: 4; -fx-border-color: #808080; -fx-border-radius: 40;">
+    <HBox layoutX="47.0" layoutY="23.0" prefHeight="46.0" prefWidth="646.0" style="-fx-background-radius: 40; -fx-padding: 4; -fx-border-color: #808080; -fx-border-radius: 40;">
       <children>
         <TextField fx:id="searchTextField" prefHeight="30.0" prefWidth="780.0" promptText="Натисніть тут для пошуку" style="-fx-background-color: transparent;">
           <font>
@@ -38,56 +38,51 @@
     </HBox>
 
     <!-- Таблиця бронювань -->
-    <TableView fx:id="reservationTable" layoutX="12.0" layoutY="81.0" prefHeight="443.0" prefWidth="898.0" stylesheets="@../design/style.css">
+    <TableView fx:id="reservationTable" layoutX="12.0" layoutY="81.0" prefHeight="571.0" prefWidth="898.0" stylesheets="@../design/style.css">
       <columns>
-        <TableColumn fx:id="sectionColumn" prefWidth="111.0" text="Секція">
+        <TableColumn fx:id="sectionColumn" prefWidth="86.0" text="Секція">
           <cellValueFactory>
             <PropertyValueFactory property="section" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="levelColumn" prefWidth="111.0" text="Поверх">
+        <TableColumn fx:id="levelColumn" prefWidth="86.0" text="Поверх">
           <cellValueFactory>
             <PropertyValueFactory property="level" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="spotNumberColumn" prefWidth="111.0" text="Номер місця">
+        <TableColumn fx:id="spotNumberColumn" prefWidth="86.0" text="Місце">
           <cellValueFactory>
             <PropertyValueFactory property="spotNumber" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="statusColumn" prefWidth="111.0" text="Статус">
+        <TableColumn fx:id="statusColumn" prefWidth="101.0" text="Статус">
           <cellValueFactory>
             <PropertyValueFactory property="status" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="sizeColumn" prefWidth="111.0" text="Розмір">
+        <TableColumn fx:id="sizeColumn" prefWidth="101.0" text="Розмір">
           <cellValueFactory>
             <PropertyValueFactory property="size" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="startTimeColumn" prefWidth="111.0" text="Час початку">
+        <TableColumn fx:id="startTimeColumn" prefWidth="160.0" text="Час початку">
           <cellValueFactory>
             <PropertyValueFactory property="startTime" />
           </cellValueFactory>
         </TableColumn>
-        <TableColumn fx:id="endTimeColumn" prefWidth="111.0" text="Час закінчення">
+        <TableColumn fx:id="endTimeColumn" prefWidth="160.0" text="Час закінчення">
           <cellValueFactory>
             <PropertyValueFactory property="endTime" />
           </cellValueFactory>
         </TableColumn>
-            <TableColumn fx:id="costColumn" prefWidth="113.0" text="Ціна">
+            <TableColumn fx:id="costColumn" prefWidth="109.0" text="Ціна">
                <cellValueFactory>
                   <PropertyValueFactory property="endTime" />
                </cellValueFactory>
             </TableColumn>
       </columns>
     </TableView>
-   <Button fx:id="cancelBookingButton" layoutX="210.0" layoutY="547.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #e74c3c;" text="Скасувати бронювання">
-     <font>
-       <Font size="14.0" />
-     </font>
-   </Button>
-   <Button fx:id="editBookingButton" layoutX="61.0" layoutY="547.0" prefHeight="40.0" prefWidth="120.0" style="-fx-background-color: #0dacba;" text="Редагувати бронювання">
+   <Button fx:id="cancelBookingButton" layoutX="712.0" layoutY="26.0" prefHeight="40.0" prefWidth="191.0" style="-fx-background-color: #0dacba;" text="Скасувати бронювання">
      <font>
        <Font size="14.0" />
      </font>

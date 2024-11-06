@@ -76,12 +76,6 @@
   -fx-padding: 10px 0; /* Додає відстань між заголовком і текстом */
 }
 
-.info-pane {
-  -fx-background-color: #E0E0E0;
-  -fx-border-color: linear-gradient(to bottom, #004C4C, #006666);
-  -fx-background-radius: 16;
-  -fx-border-radius: 16;
-}
 .card {
   -fx-background-color: white;
   -fx-border-color: white;

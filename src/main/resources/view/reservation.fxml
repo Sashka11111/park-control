@@ -19,13 +19,13 @@
   <AnchorPane layoutX="625.0" layoutY="14.0" prefHeight="648.0" prefWidth="278.0" styleClass="card" stylesheets="@../design/style.css">
     <children>
 
-      <Label fx:id="startTimeLabel" layoutX="29.0" layoutY="307.0" text="Час початку:">
+      <Label layoutX="29.0" layoutY="307.0" text="Час початку:">
         <font>
           <Font name="Georgia" size="18.0" />
         </font>
       </Label>
 
-      <Label fx:id="endTimeLabel" layoutX="23.0" layoutY="378.0" text="Час закінчення:">
+      <Label layoutX="23.0" layoutY="378.0" text="Час закінчення:">
         <font>
           <Font name="Georgia" size="18.0" />
         </font>
@@ -35,17 +35,17 @@
         <font>
           <Font name="Georgia" size="14.0" />
         </font></Button>
-            <Label fx:id="sectionLabel" layoutX="34.0" layoutY="3.0" text="Секція:">
+            <Label layoutX="34.0" layoutY="3.0" text="Секція:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="levelLabel" layoutX="31.0" layoutY="66.0" text="Поверх:">
+            <Label layoutX="31.0" layoutY="66.0" text="Поверх:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="spotNumberLabel" layoutX="26.0" layoutY="129.0" text="Номер місця:">
+            <Label layoutX="26.0" layoutY="129.0" text="Номер місця:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
@@ -65,19 +65,19 @@
                   <Font size="14.0" />
                </font>
             </TextField>
-            <Label fx:id="statusLabel" layoutX="28.0" layoutY="184.0" text="Статус:">
+            <Label layoutX="28.0" layoutY="184.0" text="Статус:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
-            <Label fx:id="sizeLabel" layoutX="26.0" layoutY="247.0" text="Розмір:">
+            <Label layoutX="26.0" layoutY="247.0" text="Розмір:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>
             </Label>
             <ComboBox fx:id="statusComboBox" layoutX="24.0" layoutY="206.0" prefHeight="26.0" prefWidth="230.0" stylesheets="@../design/style.css" />
             <ComboBox fx:id="sizeComboBox" layoutX="24.0" layoutY="269.0" prefHeight="26.0" prefWidth="230.0" styleClass="combo-box" stylesheets="@../design/style.css" />
-            <Label fx:id="priceLabel" layoutX="51.0" layoutY="534.0" text="Вартість паркування:">
+            <Label layoutX="51.0" layoutY="534.0" text="Вартість паркування:">
                <font>
                   <Font name="Georgia" size="18.0" />
                </font>

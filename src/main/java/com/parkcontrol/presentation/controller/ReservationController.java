@@ -23,9 +23,6 @@ public class ReservationController {
   private Button bookingButton;
 
   @FXML
-  private Label endTimeLabel;
-
-  @FXML
   private DateTimePicker endTimePicker;
 
   @FXML
@@ -35,16 +32,10 @@ public class ReservationController {
   private TextField levelField;
 
   @FXML
-  private Label levelLabel;
-
-  @FXML
   private TableView<ParkingSpot> parkingSpotTable;
 
   @FXML
   private Label price;
-
-  @FXML
-  private Label priceLabel;
 
   @FXML
   private TextField searchTextField;
@@ -56,16 +47,10 @@ public class ReservationController {
   private TextField sectionField;
 
   @FXML
-  private Label sectionLabel;
-
-  @FXML
   private TableColumn<ParkingSpot, String> sizeColumn;
 
   @FXML
   private ComboBox<String> sizeComboBox;
-
-  @FXML
-  private Label sizeLabel;
 
   @FXML
   private TableColumn<ParkingSpot, String> spotNumberColumn;
@@ -74,13 +59,7 @@ public class ReservationController {
   private TextField spotNumberField;
 
   @FXML
-  private Label spotNumberLabel;
-
-  @FXML
   private Label time;
-
-  @FXML
-  private Label startTimeLabel;
 
   @FXML
   private DateTimePicker startTimePicker;
@@ -90,9 +69,6 @@ public class ReservationController {
 
   @FXML
   private ComboBox<String> statusComboBox;
-
-  @FXML
-  private Label statusLabel;
 
   private List<ParkingSpot> parkingSpots;
   private ParkingSpotRepositoryImpl parkingSpotRepository;

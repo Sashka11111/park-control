@@ -29,12 +29,12 @@
             <Font size="14.0" />
           </font>
         </Button>
-        <Label fx:id="userLabel" layoutX="14.0" layoutY="37.0" prefHeight="27.0" prefWidth="106.0" text="Користувач:">
+        <Label layoutX="14.0" layoutY="37.0" prefHeight="27.0" prefWidth="106.0" text="Користувач:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
         </Label>
-        <Label fx:id="roleLabel" layoutX="64.0" layoutY="79.0" prefHeight="27.0" prefWidth="50.0" text="Роль:">
+        <Label layoutX="64.0" layoutY="79.0" prefHeight="27.0" prefWidth="50.0" text="Роль:">
           <font>
             <Font name="Georgia" size="18.0" />
           </font>
