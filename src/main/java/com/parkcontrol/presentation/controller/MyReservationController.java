@@ -79,7 +79,6 @@ public class MyReservationController {
     startTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().startTime()));
     endTimeColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().endTime()));
     costColumn.setCellValueFactory(cellData -> new SimpleObjectProperty<>(cellData.getValue().cost()));
-    // Додайте обробник події для таблиці
     reservationTable.setOnMouseClicked(event -> {
       if (event.getClickCount() == 1) { // Перевірка на одиничне натискання
         Reservation selectedReservation = reservationTable.getSelectionModel().getSelectedItem(); // Отримуємо вибране бронювання
@@ -187,9 +186,9 @@ public class MyReservationController {
           })
           .collect(Collectors.toCollection(FXCollections::observableArrayList));
 
-      reservationTable.setItems(filteredReservations); // Відображаємо відфільтровані резервації
+      reservationTable.setItems(filteredReservations);
       if (filteredReservations.isEmpty()) {
-        AlertController.showAlert("На жаль, таких даних немає");
+        reservationTable.setPlaceholder(new Label("На жаль, таких даних немає"));
       }
     }
   }

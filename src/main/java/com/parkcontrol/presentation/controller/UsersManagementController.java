@@ -22,7 +22,6 @@ public class UsersManagementController {
   private TableColumn<User, String> usernameColumn;
   @FXML
   private TableColumn<User, String> roleColumn;
-
   @FXML
   private ComboBox<UserRole> roleComboBox;
   @FXML

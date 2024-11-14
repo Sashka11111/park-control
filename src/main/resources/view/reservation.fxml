@@ -127,9 +127,7 @@
       </Button>
     </children>
   </HBox>
-      <AnchorPane layoutX="8.0" layoutY="83.0" prefHeight="583.0" prefWidth="606.0" styleClass="card" stylesheets="@../design/style.css">
-         <children>
-        <TableView fx:id="parkingSpotTable" layoutX="7.0" layoutY="8.0" prefHeight="570.0" prefWidth="592.0" stylesheets="@../design/style.css">
+        <TableView fx:id="parkingSpotTable" layoutX="14.0" layoutY="85.0" prefHeight="570.0" prefWidth="592.0" stylesheets="@../design/style.css">
           <columns>
             <TableColumn fx:id="sectionColumn" prefWidth="115.0" text="Секція">
               <cellValueFactory>
@@ -158,7 +156,5 @@
             </TableColumn>
           </columns>
         </TableView>
-         </children>
-      </AnchorPane>
   </children>
 </AnchorPane>

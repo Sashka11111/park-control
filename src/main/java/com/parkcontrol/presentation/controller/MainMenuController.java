@@ -43,8 +43,13 @@ public class MainMenuController {
   private Button usersManagementButton;
 
   @FXML
+  private Button categoryButton;
+
+  @FXML
   private Button changeAccountButton;
 
+  @FXML
+  private Button themesButton;
 
   @FXML
   private StackPane stackPane;
@@ -67,7 +72,9 @@ public class MainMenuController {
     myReservationButton.setOnAction(event -> showMyReservationPage());
     parkingSpotsButton.setOnAction(event -> showParkingSpotsPage());
     usersManagementButton.setOnAction(event -> showUsersPage());
+    categoryButton.setOnAction(event -> showCategoryPage());
     changeAccountButton.setOnAction(event -> handleChangeAccountAction());
+    themesButton.setOnAction(event -> showThemesPage());
 
     User currentUser = AuthenticatedUser.getInstance().getCurrentUser();
 
@@ -83,7 +90,7 @@ public class MainMenuController {
       addDragListeners(primaryStage.getScene().getRoot());
     });
   }
-//
+
   private void moveStackPane(Button button) {
     double buttonX = button.localToParent(button.getBoundsInLocal()).getMinX();
     double buttonY = button.localToParent(button.getBoundsInLocal()).getMinY();
@@ -105,7 +112,14 @@ public class MainMenuController {
     moveStackPane(myReservationButton);
     loadFXML("/view/myReservation.fxml");
   }
-
+  private void showCategoryPage() {
+    moveStackPane(categoryButton);
+    loadFXML("/view/category.fxml");
+  }
+  private void showThemesPage() {
+    moveStackPane(themesButton);
+    loadFXML("/view/themes.fxml");
+  }
   private void showUsersPage() {
     moveStackPane(usersManagementButton);
     loadFXML("/view/usersManagement.fxml");

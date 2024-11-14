@@ -77,11 +77,10 @@
 }
 
 .card {
-  -fx-background-color: white;
+  -fx-background-color: transparent;
   -fx-border-color: white;
   -fx-background-radius: 16px;
   -fx-border-radius: 16px;
-  -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 10, 0, 0, 4);
   -fx-wrap-text: true; /* Автоматичне перенесення тексту */
   -fx-cursor: hand;
 }

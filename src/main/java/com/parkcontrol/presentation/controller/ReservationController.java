@@ -102,7 +102,7 @@ public class ReservationController {
       }
     });
 
-    // Додати обробники подій на зміну дати та часу
+    // Додано обробники подій на зміну дати та часу
     startTimePicker.dateTimeProperty().addListener((observable, oldValue, newValue) -> calculateCostAndShow());
     endTimePicker.dateTimeProperty().addListener((observable, oldValue, newValue) -> calculateCostAndShow());
     bookingButton.setOnAction(event -> handleBooking());
@@ -250,7 +250,6 @@ public class ReservationController {
       e.printStackTrace();
     }
   }
-
 
   private void clearFields() {
     sectionField.clear();

@@ -1,13 +1,19 @@
 package com.parkcontrol.presentation.controller;
 
+import com.parkcontrol.domain.exception.EntityNotFoundException;
 import com.parkcontrol.domain.validation.ParkingSpotValidator;
 import com.parkcontrol.persistence.connection.DatabaseConnection;
+import com.parkcontrol.persistence.entity.Category;
 import com.parkcontrol.persistence.entity.ParkingSpot;
+import com.parkcontrol.persistence.repository.impl.CategoryRepositoryImpl;
 import com.parkcontrol.persistence.repository.impl.ParkingSpotRepositoryImpl;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.util.StringConverter;
+import org.controlsfx.control.CheckComboBox;
+
 import java.util.List;
 
 public class ParkingSpotController {
@@ -26,6 +32,9 @@ public class ParkingSpotController {
 
   @FXML
   private TableColumn<ParkingSpot, String> levelColumn;
+
+  @FXML
+  private CheckComboBox<Category> categoryComboBox;
 
   @FXML
   private TextField levelField;
@@ -62,9 +71,11 @@ public class ParkingSpotController {
 
   private List<ParkingSpot> parkingSpots;
   private ParkingSpotRepositoryImpl parkingSpotRepository;
+  private CategoryRepositoryImpl categoryRepository;
 
   public ParkingSpotController() {
     this.parkingSpotRepository = new ParkingSpotRepositoryImpl(new DatabaseConnection().getDataSource());
+    this.categoryRepository = new CategoryRepositoryImpl(new DatabaseConnection().getDataSource());
   }
 
   @FXML
@@ -79,6 +90,7 @@ public class ParkingSpotController {
     statusComboBox.getItems().addAll("Вільне", "Зайняте");
 
     loadParkingSpots();
+    loadCategories();
 
     parkingSpotTable.getSelectionModel().selectedItemProperty().addListener(
         (observable, oldValue, newValue) -> showParkingSpotDetails(newValue));
@@ -95,6 +107,21 @@ public class ParkingSpotController {
     parkingSpotTable.setItems(FXCollections.observableArrayList(parkingSpots));
   }
 
+  private void loadCategories() {
+    List<Category> categories = categoryRepository.getAllCategories();
+    categoryComboBox.getItems().addAll(categories);
+    categoryComboBox.setConverter(new StringConverter<>() {
+      @Override
+      public String toString(Category category) {
+        return category != null ? category.name() : "";
+      }
+
+      @Override
+      public Category fromString(String string) {
+        return null;
+      }
+    });
+  }
   private void showParkingSpotDetails(ParkingSpot parkingSpot) {
     if (parkingSpot != null) {
       sectionField.setText(parkingSpot.section());
@@ -102,72 +129,112 @@ public class ParkingSpotController {
       spotNumberField.setText(parkingSpot.spotNumber());
       statusComboBox.setValue(parkingSpot.status());
       sizeComboBox.setValue(parkingSpot.size());
+
+      categoryComboBox.getCheckModel().clearChecks();
+      List<Integer> categories = parkingSpotRepository.getCategoriesByParkingSpotId(parkingSpot.spotId());
+      for (Category category : categoryComboBox.getItems()) {
+        if (categories.contains(category.id())) {
+          categoryComboBox.getCheckModel().check(category);
+        }
+      }
     } else {
       clearFields();
     }
-  }
-
-  @FXML
+  }@FXML
   private void addParkingSpot() {
     try {
       String section = sectionField.getText().trim();
-      int level = Integer.parseInt(levelField.getText().trim());
+      int level = Integer.parseInt(levelField.getText().trim());  // Перевірка чи є число
       String spotNumber = spotNumberField.getText().trim();
       String status = statusComboBox.getValue();
       String size = sizeComboBox.getValue();
 
+      // Створення нового паркувального місця (spotId початково 0)
       ParkingSpot newParkingSpot = new ParkingSpot(0, section, level, spotNumber, status, size);
-      List<ParkingSpot> existingParkingSpots = parkingSpotRepository.findAll();
-      String validationMessage = ParkingSpotValidator.validateParkingSpot(newParkingSpot, existingParkingSpots);
+
+      // Валідація паркувального місця
+      String validationMessage = ParkingSpotValidator.validateParkingSpot(newParkingSpot, parkingSpots);
 
       if (validationMessage == null) {
-        parkingSpotRepository.addParkingSpot(newParkingSpot);
-        loadParkingSpots();
-        clearFields();
+        // Додавання паркувального місця до репозиторію
+        int generatedSpotId = parkingSpotRepository.addParkingSpot(newParkingSpot);  // Додавання в репозиторій і отримання ID
+
+        if (generatedSpotId > 0) {
+          // Тепер додаємо категорії
+          for (Category category : categoryComboBox.getCheckModel().getCheckedItems()) {
+            parkingSpotRepository.addCategoryToParkingSpot(generatedSpotId, category.id());
+          }
+
+          // Перезавантаження списку паркувальних місць та очищення полів
+          loadParkingSpots();
+          clearFields();
+
+          // Повідомлення про успішне додавання
+          AlertController.showAlert("Паркувальне місце успішно додано.");
+        } else {
+          // Якщо ID не отримано
+          AlertController.showAlert("Помилка при додаванні паркувального місця.");
+        }
       } else {
+        // Якщо валідація не пройшла
         AlertController.showAlert(validationMessage);
       }
     } catch (NumberFormatException e) {
+      // Обробка помилки, якщо рівень не є числом
       AlertController.showAlert("Поверх повинен бути числом.");
-    } catch (Exception e) {
-      AlertController.showAlert("Не вдалося зберегти нове паркувальне місце: " + e.getMessage());
     }
   }
+
   @FXML
   private void editParkingSpot() {
     ParkingSpot selectedParkingSpot = parkingSpotTable.getSelectionModel().getSelectedItem();
     if (selectedParkingSpot != null) {
+      // Створення об'єкта ParkingSpot з оновленими значеннями
+      ParkingSpot updatedParkingSpot = new ParkingSpot(
+          selectedParkingSpot.spotId(),
+          sectionField.getText().trim(),
+          Integer.parseInt(levelField.getText().trim()),
+          spotNumberField.getText().trim(),
+          statusComboBox.getValue(),
+          sizeComboBox.getValue()
+      );
+
+      // Валідація
+      String validationMessage = ParkingSpotValidator.validateParkingSpot(updatedParkingSpot, parkingSpots);
+      if (validationMessage != null) {
+        AlertController.showAlert(validationMessage);
+        return;  // Якщо валідація не пройдена, зупиняємо виконання
+      }
+
       try {
-        String section = sectionField.getText().trim();
-        int level = Integer.parseInt(levelField.getText().trim());
-        String spotNumber = spotNumberField.getText().trim();
-        String status = statusComboBox.getValue();
-        String size = sizeComboBox.getValue();
+        // Оновлення паркувального місця в репозиторії
+        parkingSpotRepository.updateParkingSpot(updatedParkingSpot);
 
-        ParkingSpot updatedParkingSpot = new ParkingSpot(
-            selectedParkingSpot.spotId(),
-            section,
-            level,
-            spotNumber,
-            status,
-            size
-        );
-
-        String validationMessage = ParkingSpotValidator.validateParkingSpot(updatedParkingSpot, parkingSpots);
-        if (validationMessage == null) {
-          parkingSpotRepository.updateParkingSpot(updatedParkingSpot);
-          loadParkingSpots();
-          clearFields();
-        } else {
-          AlertController.showAlert(validationMessage);
+        // Оновлення категорій для цього паркувального місця
+        List<Integer> currentCategoryIds = parkingSpotRepository.getCategoriesByParkingSpotId(updatedParkingSpot.spotId());
+        for (Integer categoryId : currentCategoryIds) {
+          // Видалення старих категорій
+          parkingSpotRepository.removeCategoryFromParkingSpot(updatedParkingSpot.spotId(),categoryId);
         }
-      } catch (NumberFormatException e) {
-        AlertController.showAlert("Поверх повинен бути числом.");
-      } catch (Exception e) {
-        AlertController.showAlert("Не вдалося оновити паркувальне місце: " + e.getMessage());
+
+        // Додавання нових категорій
+        for (Category category : categoryComboBox.getCheckModel().getCheckedItems()) {
+          parkingSpotRepository.addCategoryToParkingSpot(updatedParkingSpot.spotId(), category.id());
+        }
+
+        // Завантаження нових даних і очищення полів
+        loadParkingSpots();
+        clearFields();
+
+        // Повідомлення про успішне оновлення
+        AlertController.showAlert("Паркувальне місце успішно оновлено.");
+
+      } catch (EntityNotFoundException e) {
+        AlertController.showAlert("Паркувальне місце з ID " + selectedParkingSpot.spotId() + " не знайдено.");
       }
     } else {
-      AlertController.showAlert("Оберіть паркувальне місце для редагування.");
+      // Якщо користувач не вибрав паркувальне місце
+      AlertController.showAlert("Будь ласка, виберіть паркувальне місце для редагування.");
     }
   }
 
@@ -186,45 +253,29 @@ public class ParkingSpotController {
       AlertController.showAlert("Оберіть паркувальне місце для видалення.");
     }
   }
+
   private void filterParkingSpots(String searchText) {
-    // Якщо searchText порожній, відновіть повний список
-    if (searchText.isEmpty()) {
-      parkingSpotTable.setItems(FXCollections.observableArrayList(parkingSpots));
-      return;
-    }
-
-    // Фільтруємо паркувальні місця
     List<ParkingSpot> filteredList = parkingSpots.stream()
-        .filter(spot -> {
-          String section = spot.section().toLowerCase();
-          String spotNumber = spot.spotNumber().toLowerCase();
-          String status = spot.status().toLowerCase();
-          String size = spot.size().toLowerCase();
-          int level = spot.level(); // Якщо потрібно, можна також конвертувати рівень в строку, якщо це потрібно
-
-          // Повертаємо true, якщо будь-яке поле містить searchText
-          return section.contains(searchText.toLowerCase()) ||
-              spotNumber.contains(searchText.toLowerCase()) ||
-              status.contains(searchText.toLowerCase()) ||
-              size.contains(searchText.toLowerCase()) ||
-              String.valueOf(level).contains(searchText); // Пошук по рівню
-        })
+        .filter(spot -> spot.section().toLowerCase().contains(searchText.toLowerCase()) ||
+            spot.spotNumber().toLowerCase().contains(searchText.toLowerCase()) ||
+            spot.status().toLowerCase().contains(searchText.toLowerCase()) ||
+            spot.size().toLowerCase().contains(searchText.toLowerCase()) ||
+            String.valueOf(spot.level()).contains(searchText))
         .toList();
+
     parkingSpotTable.setItems(FXCollections.observableArrayList(filteredList));
 
     if (filteredList.isEmpty()) {
-      parkingSpotTable.setPlaceholder(new Label("На жаль таких даних немає"));
+      parkingSpotTable.setPlaceholder(new Label("На жаль, даних немає"));
     }
-
   }
 
-
-  @FXML
   private void clearFields() {
     sectionField.clear();
     levelField.clear();
     spotNumberField.clear();
-    sizeComboBox.setValue(null);
     statusComboBox.setValue(null);
+    sizeComboBox.setValue(null);
+    categoryComboBox.getCheckModel().clearChecks();
   }
 }

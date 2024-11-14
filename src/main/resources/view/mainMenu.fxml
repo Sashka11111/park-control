@@ -37,7 +37,7 @@
             <Font name="Georgia" size="22.0" />
           </font>
         </Label>
-        <Button fx:id="parkingSpotsButton" layoutY="301.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Паркувальні місця" textFill="WHITE">
+        <Button fx:id="parkingSpotsButton" layoutY="359.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Паркувальні місця" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -61,7 +61,7 @@
                   </ImageView>
                </graphic>
         </Button>
-        <Button fx:id="usersManagementButton" graphicTextGap="8.0" layoutY="359.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Користувачі" textFill="WHITE">
+        <Button fx:id="usersManagementButton" graphicTextGap="8.0" layoutY="475.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Користувачі" textFill="WHITE">
           <font>
             <Font size="14.0" />
           </font>
@@ -81,6 +81,30 @@
                   <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../data/changeUser.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="categoryButton" layoutY="417.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Категорії" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../data/category.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </Button>
+            <Button fx:id="themesButton" graphicTextGap="8.0" layoutY="301.0" mnemonicParsing="false" prefHeight="58.0" prefWidth="178.0" style="-fx-alignment: CENTER_LEFT;" styleClass="side-btn" stylesheets="@../design/style.css" text="Теми" textFill="WHITE">
+               <font>
+                  <Font size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../data/theme.png" />
                      </image>
                   </ImageView>
                </graphic>

@@ -121,7 +121,7 @@ public class UserRepositoryImpl implements UserRepository {
     String username = resultSet.getString("username");
     String password = resultSet.getString("password");
     String roleStr = resultSet.getString("role");
-    UserRole role = UserRole.valueOf(roleStr); // Конвертація рядка в перерахування UserRole
+    UserRole role = UserRole.valueOf(roleStr); // Конвертація рядка в UserRole
     return new User(id, username, password, role);
   }
 }

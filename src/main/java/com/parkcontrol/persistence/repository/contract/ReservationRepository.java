@@ -3,7 +3,6 @@ package com.parkcontrol.persistence.repository.contract;
 import com.parkcontrol.domain.exception.EntityNotFoundException;
 import com.parkcontrol.persistence.entity.Reservation;
 import java.util.List;
-import java.util.Map;
 
 public interface ReservationRepository {
 
