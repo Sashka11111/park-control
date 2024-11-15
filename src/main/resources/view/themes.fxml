@@ -32,7 +32,6 @@
         </children>
       </AnchorPane>
 
-
       <AnchorPane layoutX="340.0" layoutY="132.0" prefHeight="54.0" prefWidth="242.0" style="-fx-border-color: #363a42; -fx-border-radius: 10; -fx-border-width: 2;">
         <children>
           <RadioButton fx:id="nordDarkThemeRadioButton" layoutX="14.0" layoutY="6.0" prefHeight="40.0" prefWidth="223.0" text="Nord Dark">

@@ -83,6 +83,7 @@ public class MainMenuController {
     if (currentUser.role() != UserRole.ADMIN) {
       parkingSpotsButton.setVisible(false);
       usersManagementButton.setVisible(false);
+      categoryButton.setVisible(false);
     }
 
     Platform.runLater(() -> {
